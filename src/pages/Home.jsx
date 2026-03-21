@@ -18,11 +18,11 @@ import BarberBookingsPage from './BarberBookingsPage'
 import BookYourSlot from '../components/BookYourSlot'
 import { CiMenuKebab } from 'react-icons/ci'
 import { useLocation } from 'react-router-dom'
-import { 
+import {
   useGetCustomerBookingsQuery,
   useGetBookedSlotsQuery,
   useGetAdminInfoQuery,
-  useCancelBookingMutation, 
+  useCancelBookingMutation,
   useGetOurTeamQuery
 } from '../redux/api/api'
 
@@ -35,30 +35,30 @@ const Home = () => {
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
   // Redux API hooks
-  const { 
-    data: customerBookings, 
-    isLoading: bookingsLoading, 
-    refetch: refetchBookings 
+  const {
+    data: customerBookings,
+    isLoading: bookingsLoading,
+    refetch: refetchBookings
   } = useGetCustomerBookingsQuery(undefined, {
     skip: !user || user.role !== 'customer'
   });
 
-  const { 
-    data: bookedSlotsData, 
+  const {
+    data: bookedSlotsData,
     isLoading: slotsLoading,
-    refetch: refetchSlots 
+    refetch: refetchSlots
   } = useGetBookedSlotsQuery();
 
-  const { 
-    data: adminInfo, 
-    isLoading: adminInfoLoading 
+  const {
+    data: adminInfo,
+    isLoading: adminInfoLoading
   } = useGetAdminInfoQuery();
 
   const {
     data: ourTeamData,
     isLoading: ourTeamLoading,
   } = useGetOurTeamQuery();
-  
+
 
   const [cancelBooking] = useCancelBookingMutation();
 
@@ -161,9 +161,9 @@ const Home = () => {
   const handleCancelBooking = async (bookingId, payment_status) => {
     try {
       setCancelling(true);
-      const response = await cancelBooking({ 
-        bookingId, 
-        payment_status 
+      const response = await cancelBooking({
+        bookingId,
+        payment_status
       }).unwrap();
 
       toast.success(response.message);
@@ -239,7 +239,7 @@ const Home = () => {
                                 </div>
                               </div>
                               <div className='w-fit relative dropdown-container'>
-                                <button 
+                                <button
                                   className='cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors'
                                   onClick={(e) => {
                                     e.stopPropagation()
@@ -248,7 +248,7 @@ const Home = () => {
                                 >
                                   <CiMenuKebab />
                                 </button>
-                                
+
                                 {/* Dropdown Menu */}
                                 {openDropdownId === booking._id && (
                                   <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
@@ -331,20 +331,18 @@ const Home = () => {
 
                             {/* Status */}
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                              <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${
-                                booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
+                              <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
                                 booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
-                                booking.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                                'bg-gray-100 text-gray-800'
-                              }`}>
+                                  booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                                    booking.status === 'cancelled' ? 'bg-red-100 text-red-800' :
+                                      'bg-gray-100 text-gray-800'
+                                }`}>
                                 {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                               </span>
                               {booking.payment && (
-                                <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${
-                                  booking.payment === 'pending' ? 'bg-gray-100 text-red-800' :
+                                <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.payment === 'pending' ? 'bg-gray-100 text-red-800' :
                                   'bg-blue-100 text-blue-800'
-                                }`}>
+                                  }`}>
                                   {booking.payment.charAt(0).toUpperCase() + booking.payment.slice(1)}
                                 </span>
                               )}
@@ -375,8 +373,8 @@ const Home = () => {
         </div>
 
         {/* Book Your Slot Section */}
-        <BookYourSlot path={location.pathname} shopInfo={shopInfo} userRole={user && user.role} refechBooking={fetchBookings}  />
-      
+        <BookYourSlot path={location.pathname} shopInfo={shopInfo} userRole={user && user.role} refechBooking={fetchBookings} />
+
         {/* Services Section */}
         <div>
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Our Barber <span className="text-gray-500">Services</span></h2>
@@ -394,7 +392,7 @@ const Home = () => {
                   {/* Overlay */}
                   <div className="absolute inset-0  bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
 
-                  
+
                 </div>
 
                 {/* Content */}
