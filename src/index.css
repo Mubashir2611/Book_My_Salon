@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 @plugin "daisyui";
 
@@ -44,6 +44,13 @@
 
 :root {
   --radius: 0.625rem;
+  --brand-900: #2f261e;
+  --brand-700: #6f4e37;
+  --brand-500: #9a6c4b;
+  --brand-200: #e7d6c5;
+  --brand-100: #efe5d8;
+  --brand-50: #f7f1e8;
+  --brand-cream: #f7f1ea;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -117,12 +124,47 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(155deg, #efe5da 0%, #f7f1ea 55%, #e5d8c8 100%);
   }
 }
 
 @layer components {
   .btn {
-    @apply flex text-white font-bold bg-[#988bf7] rounded-[10px] items-center gap-2 hover:bg-[#b0a7f7] cursor-pointer transition-colors;
+    @apply flex text-white font-bold rounded-[10px] items-center gap-2 cursor-pointer transition-colors;
+    background: linear-gradient(135deg, var(--brand-700), var(--brand-500));
+  }
+
+  .btn:hover {
+    filter: brightness(1.05);
+  }
+
+  .brand-gradient {
+    background: linear-gradient(135deg, var(--brand-900), var(--brand-700));
+    color: #ffffff;
+  }
+
+  .brand-surface {
+    background: var(--brand-cream);
+    border: 1px solid rgba(159, 126, 100, 0.28);
+  }
+
+  .brand-chip {
+    background: var(--brand-100);
+    color: var(--brand-900);
+    border: 1px solid rgba(111, 78, 55, 0.24);
+  }
+
+  .brand-shadow {
+    box-shadow: 0 10px 24px rgba(67, 45, 29, 0.18);
+  }
+
+  .brand-title {
+    color: var(--brand-900);
+  }
+
+  .brand-muted {
+    color: #5e4a3a;
   }
 }
+
 

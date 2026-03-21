@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { useGetMyShopDetailsQuery, useUpdateShopDetailsMutation } from '../../redux/api/api'
 import toast from 'react-hot-toast'
 import { FaCamera } from 'react-icons/fa'
@@ -77,7 +77,7 @@ const ShopEdit = () => {
               <p>{error?.data?.message || 'Failed to fetch shop details'}</p>
               <button 
                 onClick={() => refetch()} 
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="mt-2 px-4 py-2 bg-[#9a6c4b] text-white rounded hover:bg-[#9a6c4b]"
               >
                 Retry
               </button>
@@ -246,7 +246,7 @@ const ShopEdit = () => {
 
       <div className="space-y-6">
         {/* Profile Picture Section */}
-        <div className="bg-[#D4DAFF] rounded-lg p-4">
+        <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4">
           <h3 className="font-medium text-gray-800 mb-4">Profile Picture</h3>
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -254,9 +254,9 @@ const ShopEdit = () => {
                 src={profilePicPreview || '/default-avatar.png'}
                 alt="Profile"
                 loading="lazy"
-                className="w-20 h-20 rounded-full border-2 border-[#645CAD] object-cover"
+                className="w-20 h-20 rounded-full border-2 border-[#6f4e37] object-cover"
               />
-              <label className="absolute bottom-0 right-0 bg-[#645CAD] text-black p-2 rounded-full cursor-pointer hover:bg-[#574ba0] transition-colors">
+              <label className="absolute bottom-0 right-0 bg-[#6f4e37] text-white p-2 rounded-full cursor-pointer hover:bg-[#9a6c4b] transition-colors">
                 <span className="text-xs"><FaCamera /></span>
                 <input
                   type="file"
@@ -283,7 +283,7 @@ const ShopEdit = () => {
               value={shopDetails.shop_address}
               onChange={(e) => handleInputChange('shop_address', e.target.value)}
               rows="3"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               placeholder="Enter shop address"
             />
           </div>
@@ -294,14 +294,14 @@ const ShopEdit = () => {
               type="tel"
               value={shopDetails.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               placeholder="Enter phone number"
             />
           </div>
         </div>
 
         {/* Opening Hours */}
-        <div className="bg-[#D4DAFF] rounded-lg p-4">
+        <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4">
           <h3 className="font-medium text-gray-800 mb-4">Opening Hours</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -310,7 +310,7 @@ const ShopEdit = () => {
                 type="time"
                 value={shopDetails.opening_hours.start}
                 onChange={(e) => handleInputChange('opening_hours.start', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               />
             </div>
 
@@ -320,7 +320,7 @@ const ShopEdit = () => {
                 type="time"
                 value={shopDetails.opening_hours.end}
                 onChange={(e) => handleInputChange('opening_hours.end', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               />
             </div>
 
@@ -330,7 +330,7 @@ const ShopEdit = () => {
                   type="checkbox"
                   checked={shopDetails.today_open}
                   onChange={(e) => handleInputChange('today_open', e.target.checked)}
-                  className="w-5 h-5 text-[#645CAD] bg-gray-100 border-gray-300 rounded focus:ring-[#645CAD] focus:ring-2"
+                  className="w-5 h-5 text-[#6f4e37] bg-gray-100 border-gray-300 rounded focus:ring-[#9a6c4b] focus:ring-2"
                 />
                 <span className="text-sm font-medium text-gray-700">Open Today</span>
               </label>
@@ -339,7 +339,7 @@ const ShopEdit = () => {
         </div>
 
         {/* Tiffin Time */}
-        <div className="bg-[#D4DAFF] rounded-lg p-4">
+        <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4">
           <h3 className="font-medium text-gray-800 mb-4">Tiffin Time (Break)</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -348,7 +348,7 @@ const ShopEdit = () => {
                 type="time"
                 value={shopDetails.tiffin_time.start}
                 onChange={(e) => handleInputChange('tiffin_time.start', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               />
             </div>
 
@@ -358,7 +358,7 @@ const ShopEdit = () => {
                 type="time"
                 value={shopDetails.tiffin_time.end}
                 onChange={(e) => handleInputChange('tiffin_time.end', e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
               />
             </div>
           </div>
@@ -371,7 +371,7 @@ const ShopEdit = () => {
             <select
               value={shopDetails.half_closing_day || ""}
               onChange={(e) => handleInputChange('half_closing_day', e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
             >
               <option value="">No half closing day</option>
               {weekdays.map(day => (
@@ -385,7 +385,7 @@ const ShopEdit = () => {
             <select
               value={shopDetails.slot_interval}
               onChange={(e) => handleInputChange('slot_interval', parseInt(e.target.value))}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
             >
               {slotIntervals.map(interval => (
                 <option key={interval} value={interval}>{interval} minutes</option>
@@ -395,7 +395,7 @@ const ShopEdit = () => {
         </div>
 
         {/* Closing Days */}
-        <div className="bg-[#D4DAFF] rounded-lg p-4">
+        <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4">
           <h3 className="font-medium text-gray-800 mb-4">Closing Days</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {weekdays.map(day => (
@@ -404,7 +404,7 @@ const ShopEdit = () => {
                   type="checkbox"
                   checked={shopDetails.closing_days.includes(day)}
                   onChange={() => handleClosingDayToggle(day)}
-                  className="w-5 h-5 text-[#645CAD] bg-gray-100 border-gray-300 rounded focus:ring-[#645CAD] focus:ring-2"
+                  className="w-5 h-5 text-[#6f4e37] bg-gray-100 border-gray-300 rounded focus:ring-[#9a6c4b] focus:ring-2"
                 />
                 <span className="text-sm text-gray-700">{day}</span>
               </label>
@@ -413,12 +413,12 @@ const ShopEdit = () => {
         </div>
 
         {/* Services */}
-        <div className="bg-[#D4DAFF] rounded-lg p-4">
+        <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-medium text-gray-800">Services</h3>
             <button
               onClick={() => setShowServiceForm(true)}
-              className="bg-[#645CAD] text-white px-4 py-2 rounded-lg hover:bg-[#574ba0] transition-colors"
+              className="bg-[#6f4e37] text-white px-4 py-2 rounded-lg hover:bg-[#9a6c4b] transition-colors"
             >
               Add Service
             </button>
@@ -429,7 +429,7 @@ const ShopEdit = () => {
               <div key={index} className="bg-white rounded-lg p-3 flex items-center justify-between">
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-800">{service.name}</h4>
-                  <p className="text-sm text-gray-600">{service.duration} min • ₹{service.price}</p>
+                  <p className="text-sm text-gray-600">{service.duration} min Rs. Rs.{service.price}</p>
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -438,7 +438,7 @@ const ShopEdit = () => {
                       type="checkbox"
                       checked={service.available}
                       onChange={() => handleServiceToggle(index)}
-                      className="w-4 h-4 text-[#645CAD] bg-gray-100 border-gray-300 rounded focus:ring-[#645CAD] focus:ring-2"
+                      className="w-4 h-4 text-[#6f4e37] bg-gray-100 border-gray-300 rounded focus:ring-[#9a6c4b] focus:ring-2"
                     />
                     <span className="text-sm text-gray-700">Available</span>
                   </label>
@@ -456,7 +456,7 @@ const ShopEdit = () => {
 
           {/* Add Service Form */}
           {showServiceForm && (
-            <div className="mt-4 bg-white rounded-lg p-4 border-2 border-[#645CAD]">
+            <div className="mt-4 bg-white rounded-lg p-4 border-2 border-[#9a6c4b]">
               <h4 className="font-medium text-gray-800 mb-3">Add New Service</h4>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -465,7 +465,7 @@ const ShopEdit = () => {
                   value={newService.name}
                   onChange={(e) => setNewService(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Service name"
-                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 />
 
                 <input
@@ -473,15 +473,15 @@ const ShopEdit = () => {
                   value={newService.duration}
                   onChange={(e) => setNewService(prev => ({ ...prev, duration: e.target.value }))}
                   placeholder="Duration (min)"
-                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 />
 
                 <input
                   type="number"
                   value={newService.price}
                   onChange={(e) => setNewService(prev => ({ ...prev, price: e.target.value }))}
-                  placeholder="Price (₹)"
-                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                  placeholder="Price (Rs.)"
+                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 />
               </div>
 
@@ -494,7 +494,7 @@ const ShopEdit = () => {
                 </button>
                 <button
                   onClick={handleAddService}
-                  className="px-4 py-2 bg-[#645CAD] text-white rounded-lg hover:bg-[#574ba0] transition-colors"
+                  className="px-4 py-2 bg-[#6f4e37] text-white rounded-lg hover:bg-[#9a6c4b] transition-colors"
                 >
                   Add Service
                 </button>
@@ -508,7 +508,7 @@ const ShopEdit = () => {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-[#645CAD] text-white px-8 py-3 rounded-lg hover:bg-[#574ba0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#6f4e37] text-white px-8 py-3 rounded-lg hover:bg-[#9a6c4b] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {saving ? 'Saving...' : 'Save Changes'}
           </button>
@@ -519,3 +519,5 @@ const ShopEdit = () => {
 }
 
 export default ShopEdit
+
+

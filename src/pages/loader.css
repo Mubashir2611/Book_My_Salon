@@ -13,12 +13,12 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: transparent; /* Purple color matching your theme */
+    background: transparent; /* Theme color can be set if needed */
     border-radius: 5px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: transparent; /* Darker purple on hover */
+    background: transparent; /* Hover color can be set if needed */
   }
 
   /* For Firefox */
@@ -50,32 +50,32 @@
 
 .front {
   transform: translateZ(20px);
-  background-color: #3498db;
+  background-color: #9a6c4b;
 }
 
 .back {
   transform: translateZ(-20px);
-  background-color: #e74c3c;
+  background-color: #6f4e37;
 }
 
 .left {
   transform: rotateY(90deg) translateZ(20px);
-  background-color: #2ecc71;
+  background-color: #cfae90;
 }
 
 .right {
   transform: rotateY(-90deg) translateZ(20px);
-  background-color: #f39c12;
+  background-color: #e5d8c8;
 }
 
 .top {
   transform: rotateX(90deg) translateZ(20px);
-  background-color: #9b59b6;
+  background-color: #2f261e;
 }
 
 .bottom {
   transform: rotateX(-90deg) translateZ(20px);
-  background-color: #e67e22;
+  background-color: #b48763;
 }
 
 @keyframes spin {

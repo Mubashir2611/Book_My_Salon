@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { MdDelete } from 'react-icons/md'
 import {
@@ -91,7 +91,7 @@ const Shop = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#9a6c4b]"></div>
       </div>
     )
   }
@@ -118,7 +118,7 @@ const Shop = () => {
               }
               setShowAdminForm(!showAdminForm)
             }}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200"
+            className="px-4 py-2 bg-[#6f4e37] text-white rounded-md hover:bg-[#9a6c4b] transition-colors duration-200"
           >
             {showAdminForm ? 'Cancel' : 'Edit Info'}
           </button>
@@ -167,7 +167,7 @@ const Shop = () => {
                   name="shop_name"
                   value={adminFormData.shop_name}
                   onChange={handleAdminInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9a6c4b]"
                   required
                 />
               </div>
@@ -180,7 +180,7 @@ const Shop = () => {
                   name="shop_phone"
                   value={adminFormData.shop_phone}
                   onChange={handleAdminInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9a6c4b]"
                   required
                 />
               </div>
@@ -193,7 +193,7 @@ const Shop = () => {
                   name="shop_email"
                   value={adminFormData.shop_email}
                   onChange={handleAdminInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9a6c4b]"
                   required
                 />
               </div>
@@ -206,7 +206,7 @@ const Shop = () => {
                   name="shop_address"
                   value={adminFormData.shop_address}
                   onChange={handleAdminInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9a6c4b]"
                   required
                 />
               </div>
@@ -242,7 +242,7 @@ const Shop = () => {
                 value={adminFormData.notice}
                 onChange={handleAdminInputChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9a6c4b]"
                 placeholder="Any special notice or announcement..."
               />
             </div>
@@ -251,7 +251,7 @@ const Shop = () => {
               <button
                 type="submit"
                 disabled={updateLoading}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 transition-colors duration-200"
+                className="px-6 py-2 bg-[#6f4e37] text-white rounded-md hover:bg-[#9a6c4b] disabled:opacity-50 transition-colors duration-200"
               >
                 {updateLoading ? 'Saving...' : 'Save Information'}
               </button>
@@ -294,21 +294,21 @@ const Shop = () => {
                   <img
                     src={barber.profileUrl || '/default-avatar.png'}
                     alt={barber.name}
-                    className="w-16 h-16 rounded-full border-3 border-purple-200 object-cover"
+                    className="w-16 h-16 rounded-full border-3 border-[#dbcab8] object-cover"
                     onError={(e) => {
                       e.target.src = '/default-avatar.png'
                     }}
                   />
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">{barber.name}</h3>
-                    <p className="text-sm text-purple-600">Professional {barber.gender === "Male" ? "Barber" : "Beautician"}</p>
+                    <p className="text-sm text-[#7b5f49]">Professional {barber.gender === "Male" ? "Barber" : "Beautician"}</p>
                   </div>
                 </div>
 
                 {/* Contact Info */}
                 <div className="space-y-2 mb-4 ml-20">
                   <div className="flex items-center space-x-2">
-                    <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-4 h-4 text-[#8b6b52]" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                     </svg>
                     <span className="text-sm text-gray-900 font-medium">{barber.phone}</span>
@@ -329,14 +329,14 @@ const Shop = () => {
                       {barberData.services.map((service, index) => (
                         <div 
                           key={service._id || index} 
-                          className="text-xs flex gap-2 w-fit bg-[#dbeafe] text-gray-700 px-2 py-1 rounded mb-2"
+                          className="text-xs flex gap-2 w-fit bg-[#efe5d8] text-gray-700 px-2 py-1 rounded mb-2"
                         >
                           <div className="flex items-center space-x-2 ">
                             <div className={`w-1 h-1 rounded-full ${service.available ? 'bg-green-500' : 'bg-red-500'}`}></div>
                             <span className="text-xs text-gray-900">{service.name}</span>
                           </div>
                           <div className="text-right">
-                            <div className="text-xs text-purple-600">₹{service.price}</div>
+                            <div className="text-xs text-[#7b5f49]">Rs.{service.price}</div>
                             {/* <div className="text-xs text-gray-500">{service.duration} min</div> */}
                           </div>
                         </div>
@@ -368,3 +368,5 @@ const Shop = () => {
 }
 
 export default Shop
+
+

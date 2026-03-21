@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 const ServiceSelectionModal = ({
   showServiceModal,
@@ -16,8 +16,8 @@ const ServiceSelectionModal = ({
   if (!showServiceModal) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4">
-      <div className="bg-white rounded-2xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60 p-4">
+      <div className="bg-white border border-[#dbcab8] rounded-2xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto brand-shadow">
         <h3 className="text-lg font-bold mb-4">Add Services</h3>
 
         {/* Barber Selection Dropdown */}
@@ -28,7 +28,7 @@ const ServiceSelectionModal = ({
           <select
             value={selectedBarberForService}
             onChange={(e) => setSelectedBarberForService(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
           >
             <option value="">-- Select Barber --</option>
             {availableBarbers.map((barber) => (
@@ -51,7 +51,7 @@ const ServiceSelectionModal = ({
                 placeholder="Search services..."
                 value={serviceSearchQuery}
                 onChange={(e) => setServiceSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent text-sm"
               />
             </div>
 
@@ -81,8 +81,8 @@ const ServiceSelectionModal = ({
                   <label
                     key={service._id}
                     className={`flex items-center justify-between p-3 rounded-lg cursor-pointer border-2 transition-all ${selectedServices.includes(service.name)
-                      ? 'bg-purple-100 border-purple-400'
-                      : 'bg-gray-50 border-gray-200 hover:border-purple-300'
+                      ? 'bg-[#efe2d3] border-[#c9a586]'
+                      : 'bg-gray-50 border-gray-200 hover:border-[#cfae90]'
                       }`}
                   >
                     <div className="flex items-center gap-3">
@@ -90,13 +90,13 @@ const ServiceSelectionModal = ({
                         type="checkbox"
                         checked={selectedServices.includes(service.name)}
                         onChange={() => toggleServiceSelection(service.name)}
-                        className="w-5 h-5 text-purple-600 rounded focus:ring-purple-500"
+                        className="w-5 h-5 text-[#7b5f49] rounded focus:ring-[#9a6c4b]"
                       />
                       <span className="font-medium text-sm">{index + 1}. {service.name}</span>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-600">{service.duration} min</div>
-                      <div className="text-sm text-gray-500">₹{service.price}</div>
+                      <div className="text-sm text-gray-500">Rs.{service.price}</div>
                     </div>
                   </label>
                 ));
@@ -115,7 +115,7 @@ const ServiceSelectionModal = ({
           </button>
           <button
             onClick={onDone}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="flex-1 px-4 py-2 bg-[#9a6c4b] text-white rounded-lg hover:bg-[#7f5438] transition-colors font-medium"
           >
             Done
           </button>
@@ -126,3 +126,6 @@ const ServiceSelectionModal = ({
 };
 
 export default ServiceSelectionModal;
+
+
+

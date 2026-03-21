@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 
 const Pagination = ({ 
   pagination, 
@@ -20,7 +20,7 @@ const Pagination = ({
           className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
             currentPage === 1
               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              : 'bg-[#A89FFB] text-white hover:bg-[#988bf7]'
+                : 'bg-[#9a6c4b] text-white hover:bg-[#6f4e37]'
           }`}
         >
           Previous
@@ -38,7 +38,7 @@ const Pagination = ({
                   onClick={() => onPageChange(page)}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     currentPage === page
-                      ? 'bg-[#645CAD] text-white'
+                      ? 'bg-[#6f4e37] text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
                 >
@@ -58,7 +58,7 @@ const Pagination = ({
                     onClick={() => onPageChange(page)}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       currentPage === page
-                        ? 'bg-[#645CAD] text-white'
+                        ? 'bg-[#6f4e37] text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     }`}
                   >
@@ -87,7 +87,7 @@ const Pagination = ({
           className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
             currentPage === pagination.total_pages
               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              : 'bg-[#A89FFB] text-white hover:bg-[#988bf7]'
+                : 'bg-[#9a6c4b] text-white hover:bg-[#6f4e37]'
           }`}
         >
           Next

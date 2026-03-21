@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { useGetBookingsQuery, useUpdateBookingStatusMutation } from '../../redux/api/api'
 import toast from 'react-hot-toast'
 import Pagination from './Pagination'
@@ -34,7 +34,7 @@ const CustomerBookings = () => {
             <p>{error?.data?.message || 'Failed to fetch bookings'}</p>
             <button 
               onClick={() => refetch()} 
-              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mt-2 px-4 py-2 bg-[#9a6c4b] text-white rounded hover:bg-[#9a6c4b]"
             >
               Retry
             </button>
@@ -102,7 +102,7 @@ const CustomerBookings = () => {
   // console.log("Filtered Bookings:", filteredBookings);  
 
   const BookingSkeleton = () => (
-    <div className="bg-[#D4DAFF] rounded-lg p-4 animate-pulse">
+    <div className="bg-[#efe5d8] rounded-lg p-4 animate-pulse">
       <div className="flex gap-4">
         <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
         <div className="flex-1">
@@ -125,8 +125,8 @@ const CustomerBookings = () => {
         {/* Filter Buttons */}
         <div className="flex flex-wrap gap-2">
           {[
-            { key: 'today', label: 'Today', color: 'bg-[#645CAD]' },
-            { key: 'upcoming', label: 'Upcoming', color: 'bg-[#988bf7]' },
+            { key: 'today', label: 'Today', color: 'bg-[#6f4e37]' },
+            { key: 'upcoming', label: 'Upcoming', color: 'bg-[#9a6c4b]' },
             { key: 'completed', label: 'Completed', color: 'bg-green-500' }
           ].map(({ key, label, color }) => (
             <button
@@ -156,11 +156,11 @@ const CustomerBookings = () => {
           </div>
         ) : (
           filteredBookings.map((booking) => (
-            <div key={booking._id} className="bg-[#ffffff] rounded-lg p-4 shadow-sm">
+            <div key={booking._id} className="bg-[#ffffff] rounded-lg p-4 shadow-sm border border-[#dbcab8]">
               <div className="flex gap-4">
                 {/* Customer Profile */}
                 <div className="shrink-0">
-                  <div className="w-12 h-12 rounded-full border-2 border-[#645CAD] bg-[#645CAD] flex items-center justify-center text-white font-semibold">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#6f4e37] bg-[#6f4e37] flex items-center justify-center text-white font-semibold">
                     {booking.customerdetails?.customer_name ? booking.customerdetails?.customer_name.charAt(0).toUpperCase() : 'C'}
                   </div>
                 </div>
@@ -174,7 +174,7 @@ const CustomerBookings = () => {
                       </h3>
                       <p className="text-sm text-gray-600">{booking.customerdetails?.customer_phone || 'No phone'}</p>
                       <div className="flex flex-wrap gap-2 mt-2 sm:mt-2">
-                        <span className="text-sm bg-[#988bf7] text-white px-2 py-1 rounded-full">
+                        <span className="text-sm bg-[#9a6c4b] text-white px-2 py-1 rounded-full">
                           {getDate(booking.date)}
                         </span>
                       </div>
@@ -184,12 +184,12 @@ const CustomerBookings = () => {
                   {/* Service Providers */}
                   <div className="space-y-3 mb-3">
                     {booking.serviceProviders && booking.serviceProviders.map((provider, index) => (
-                      <div key={provider._id || index} className="bg-[#f3f4f6] rounded-lg p-3">
+                      <div key={provider._id || index} className="bg-[#f3f4f6] rounded-lg p-3 border border-[#dbcab8]">
                         <div className="flex items-center gap-3 mb-2">
                           <img
                             src={provider.barber_id?.profileUrl || '/default-avatar.png'}
                             alt={provider.barber_id?.name}
-                            className="w-10 h-10 rounded-full border-2 border-purple-300 object-cover"
+                            className="w-10 h-10 rounded-full border-2 border-[#cfae90] object-cover"
                             onError={(e) => { e.target.src = '/default-avatar.png' }}
                           />
                           <div className="flex-1">
@@ -197,10 +197,10 @@ const CustomerBookings = () => {
                               {provider.barber_id?.name || 'Unknown Barber'}
                             </h4>
                             <div className="flex flex-wrap gap-2 mt-1">
-                              <span className="text-xs bg-[#988bf7] text-white px-2 py-1 rounded-full">
+                              <span className="text-xs bg-[#9a6c4b] text-white px-2 py-1 rounded-full">
                                 {provider.start_time} - {provider.end_time}
                               </span>
-                              <span className="text-xs bg-[#A89FFB] text-white px-2 py-1 rounded-full">
+                              <span className="text-xs bg-[#6f4e37] text-white px-2 py-1 rounded-full">
                                 {provider.service_time} min
                               </span>
                             </div>
@@ -210,7 +210,7 @@ const CustomerBookings = () => {
                           {provider.services && provider.services.map((service, idx) => (
                             <span
                               key={idx}
-                              className="text-xs bg-[#b0a1ff] text-gray-700 px-2 py-1 rounded"
+                              className="text-xs bg-[#efe2d3] text-[#5b4635] px-2 py-1 rounded"
                             >
                               {service}
                             </span>
@@ -224,14 +224,14 @@ const CustomerBookings = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                     <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
                         booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                          booking.status === 'completed' ? 'bg-[#efe2d3] text-[#5b4635]' :
                             booking.status === 'cancelled' ? 'bg-red-100 text-red-800' :
                               'bg-gray-100 text-gray-800'
                       }`}>
                       {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                     </span>
                     <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.payment === 'pending' ? 'bg-gray-100 text-red-800' :
-                       'bg-blue-100 text-blue-800' 
+                       'bg-[#efe2d3] text-[#5b4635]' 
                       }`}>
                       {booking.payment?.charAt(0).toUpperCase() + booking.payment?.slice(1) || 'Pending'}
                     </span>
@@ -250,7 +250,7 @@ const CustomerBookings = () => {
                         {booking.status === 'arrived' && (
                           <button
                             onClick={() => updateBookingStatus({id: booking._id, status: 'completed'})}
-                            className="px-3 py-1 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+                            className="px-3 py-1 bg-[#9a6c4b] text-white text-sm rounded-lg hover:bg-[#9a6c4b] transition-colors"
                           >
                             Complete
                           </button>
@@ -278,3 +278,4 @@ const CustomerBookings = () => {
 }
 
 export default CustomerBookings
+

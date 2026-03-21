@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 // Base Skeleton Component
 export const Skeleton = ({ className = "", width = "100%", height = "20px", ...props }) => {
@@ -62,7 +62,7 @@ export const TimeSlotSkeleton = () => {
 // Team Card Skeleton
 export const TeamSkeleton = () => {
   return (
-    <div className="flex flex-col items-center min-w-[120px] bg-white rounded-lg p-4 shadow">
+    <div className="flex flex-col items-center min-w-30 bg-white rounded-lg p-4 shadow">
       <Skeleton className="w-20 h-20 rounded-full mb-2" />
       <Skeleton width="80px" height="16px" className="mb-1" />
       <Skeleton width="100px" height="14px" />
@@ -73,7 +73,7 @@ export const TeamSkeleton = () => {
 // Service Card Skeleton
 export const ServiceSkeleton = () => {
   return (
-    <div className="relative bg-[#b8a4ff] rounded-xl shadow-sm overflow-hidden w-[calc(50%-8px)] min-w-[194px]">
+    <div className="relative bg-[#efe5d8] rounded-xl shadow-sm overflow-hidden w-[calc(50%-8px)] min-w-45">
       <div className="relative h-32 overflow-hidden">
         <Skeleton className="w-full h-full" />
         <div className="absolute top-3 right-3 w-10 h-10 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-sm">

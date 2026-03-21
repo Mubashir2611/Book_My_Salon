@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+﻿import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/Logo.png'
 import { useDispatch, useSelector } from 'react-redux'
@@ -58,15 +58,15 @@ const Header = () => {
     }, [dispatch]);
 
     return (
-        <nav className='flex justify-between items-center ' style={{ padding: '10px' }}>
+        <nav className='sticky top-0 z-40 flex justify-between items-center gap-3 px-3 sm:px-5 py-3 border-b brand-shadow' style={{ backgroundColor: '#f7f1ea', borderColor: 'rgba(159,126,100,0.25)' }}>
 
             <div>
                 <Link to="/">
-                    <div className=' flex gap-2 '>
+                    <div className=' flex gap-2 items-center'>
                         <img src={Logo} alt="" loading="lazy" className='w-13 h-10  rounded-full' />
                         <div>
-                            <h1 className='text-2xl font-bold'>ELITE </h1>
-                            <p className='text-sm -mt-2'>Barber Shop</p>
+                            <h1 className='text-xl sm:text-2xl font-bold text-[#2f261e]'>ELITE </h1>
+                            <p className='text-xs sm:text-sm -mt-1 text-[#334155]'>Barber Shop</p>
                         </div>
                     </div>
                 </Link>
@@ -75,7 +75,7 @@ const Header = () => {
             {/* Login/Signup Button */}
             {!user ? (<Link
                 to="/login"
-                className="flex text-white font-bold bg-[#988bf7] rounded-[10px] items-center gap-2 hover:bg-[#b0a7f7] cursor-pointer transition-colors px-4 py-2"
+                className="flex text-white font-bold bg-[#6f4e37] rounded-[10px] items-center gap-2 hover:bg-[#9a6c4b] cursor-pointer transition-colors px-4 py-2"
             >
                 Login/SignUp
             </Link>) : (
@@ -98,7 +98,7 @@ const Header = () => {
                                     className="rounded-full"
                                 />
                             ) : (
-                                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm">
+                                <div className="w-8 h-8 rounded-full bg-[#9a6c4b] flex items-center justify-center text-white text-sm">
                                     <User className="w-4 h-4" />
                                 </div>
                             )}
@@ -110,7 +110,7 @@ const Header = () => {
 
                         {/* Dropdown menu (click to toggle) */}
                         <div
-                            className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg transition-all duration-200 z-50 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+                            className={`absolute right-0 mt-2 w-52 bg-white border border-[#dbcab8] rounded-md shadow-lg transition-all duration-200 z-50 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="py-2">
@@ -123,13 +123,13 @@ const Header = () => {
                                         <>
                                         <Link
                                             to="/barber/dashboard"
-                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f7efe6]"
                                         >
                                             Dashboard
                                         </Link>
                                         <button
                                     onClick={logoutHandler}
-                                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#f7efe6] flex items-center gap-2"
                                 >
                                     <LogOut className="w-4 h-4" />
                                     Sign out
@@ -139,13 +139,13 @@ const Header = () => {
                                         <>
                                         <Link
                                             to="/admin/dashboard"
-                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#f7efe6]"
                                         >
                                             Dashboard
                                         </Link>
                                         <button
                                     onClick={logoutHandler}
-                                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#f7efe6] flex items-center gap-2"
                                 >
                                     <LogOut className="w-4 h-4" />
                                     Sign out
@@ -154,7 +154,7 @@ const Header = () => {
                                     ) : (
                                         <button
                                             onClick={logoutHandler}
-                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#f7efe6] flex items-center gap-2"
                                         >
                                             <LogOut className="w-4 h-4" />
                                             Sign out
@@ -172,3 +172,4 @@ const Header = () => {
 }
 
 export default Header
+

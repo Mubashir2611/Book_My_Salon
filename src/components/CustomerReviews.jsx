@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FiEdit2, FiSearch, FiTrash2 } from 'react-icons/fi';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import toast from 'react-hot-toast';
@@ -258,7 +258,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
         </h2>
         <button
           onClick={() => setShowModal(true)}
-          className="p-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer"
+          className="p-2 bg-[#6f4e37] hover:bg-[#9a6c4b] text-white rounded-lg transition-colors cursor-pointer"
           title="Write a review"
         >
           <FiEdit2 size={20} />
@@ -279,12 +279,12 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                 {userReviews.map((review) => (
                   <div
                     key={review._id}
-                    className="bg-white rounded-lg p-4 shadow-sm border border-purple-200 w-80 flex-shrink-0"
+                    className="bg-white rounded-lg p-4 shadow-sm border border-[#dbcab8] w-80 shrink-0"
                   >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
                       {review.barber && (
-                        <div className="text-sm text-purple-600 font-medium mb-1">
+                        <div className="text-sm text-[#6f4e37] font-medium mb-1">
                           Review for: {review.barber.name}
                         </div>
                       )}
@@ -323,7 +323,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
             onClick={() => setSelectedBarber('all')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
               selectedBarber === 'all'
-                ? 'bg-purple-500 text-white'
+                ? 'bg-[#6f4e37] text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -335,7 +335,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               onClick={() => setSelectedBarber(barber._id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
                 selectedBarber === barber._id
-                  ? 'bg-purple-500 text-white'
+                  ? 'bg-[#6f4e37] text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
@@ -357,7 +357,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               {reviews.slice(0, 3).map((review) => (
                 <div
                   key={review._id}
-                  className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 w-80 flex-shrink-0"
+                  className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 w-80 shrink-0"
                 >
                   <div className="flex items-start gap-3 mb-3">
                     <img
@@ -377,7 +377,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                     </div>
                   </div>
                   {review.barber && (
-                    <div className="mb-2 text-sm text-purple-600 font-medium">
+                    <div className="mb-2 text-sm text-[#6f4e37] font-medium">
                       For: {review.barber.name}
                     </div>
                   )}
@@ -393,7 +393,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
           <div className="text-right mt-2">
             <button
               onClick={openAllReviewsModal}
-              className="text-purple-600 hover:text-purple-700 font-medium text-sm cursor-pointer"
+              className="text-[#6f4e37] hover:text-[#9a6c4b] font-medium text-sm cursor-pointer"
             >
               More...
             </button>
@@ -415,7 +415,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               <select
                 value={reviewForm.barberId}
                 onChange={(e) => setReviewForm({ ...reviewForm, barberId: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent"
               >
                 <option value="">-- Select Barber --</option>
                 {availableBarbers.map((barber) => (
@@ -443,7 +443,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                 value={reviewForm.comment}
                 onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
                 placeholder="Share your experience..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent resize-none"
                 rows={4}
               />
             </div>
@@ -462,7 +462,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               <button
                 onClick={handleSubmitReview}
                 disabled={submitting}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+                className="flex-1 px-4 py-2 bg-[#6f4e37] text-white rounded-lg hover:bg-[#9a6c4b] transition-colors disabled:bg-gray-400"
               >
                 {submitting ? 'Submitting...' : 'Submit Review'}
               </button>
@@ -481,7 +481,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                 onClick={() => setShowAllReviewsModal(false)}
                 className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
               >
-                ×
+                
               </button>
             </div>
 
@@ -493,7 +493,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                 placeholder="Search reviews..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent"
               />
             </div>
 
@@ -503,7 +503,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               <select
                 value={modalBarberFilter}
                 onChange={(e) => setModalBarberFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent"
               >
                 <option value="all">All Barbers</option>
                 {availableBarbers.map((barber) => (
@@ -517,7 +517,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
               <select
                 value={modalStarFilter}
                 onChange={(e) => setModalStarFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent"
               >
                 <option value="all">All Ratings</option>
                 <option value="5">5 Stars</option>
@@ -559,7 +559,7 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
                       </div>
                     </div>
                     {review.barber && (
-                      <div className="mb-2 text-sm text-purple-600 font-medium">
+                      <div className="mb-2 text-sm text-[#6f4e37] font-medium">
                         For: {review.barber.name}
                       </div>
                     )}
@@ -592,3 +592,6 @@ const CustomerReviews = ({ availableBarbers = [], user,  }) => {
 };
 
 export default CustomerReviews;
+
+
+

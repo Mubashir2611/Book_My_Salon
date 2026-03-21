@@ -1,15 +1,15 @@
-
+﻿
 
 .card-spotlight {
   position: relative;
   border-radius: 1.5rem;
-  border: 1px solid #222;
-  background-color: #c4c6f6;
+  border: 1px solid #cfae90;
+  background-color: #efe5d8;
   padding: 2rem;
   overflow: hidden;
   --mouse-x: 50%;
   --mouse-y: 50%;
-  --spotlight-color: rgba(255, 255, 255, 0.05);
+  --spotlight-color: rgba(154, 108, 75, 0.25);
 }
 
 .card-spotlight::before {
@@ -29,3 +29,4 @@
 .card-spotlight:focus-within::before {
   opacity: 0.6;
 }
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { server } from '../../constants/config'
 import toast from 'react-hot-toast'
@@ -92,7 +92,7 @@ const SpamList = () => {
   }
 
   const SpamSkeleton = () => (
-    <div className="bg-[#D4DAFF] rounded-lg p-4 animate-pulse">
+    <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4 animate-pulse">
       <div className="flex gap-4 items-center">
         <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
         <div className="flex-1">
@@ -134,7 +134,7 @@ const SpamList = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 placeholder="Enter customer phone number"
               />
             </div>
@@ -147,7 +147,7 @@ const SpamList = () => {
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 rows="3"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 placeholder="Reason for adding to spam list"
               />
             </div>
@@ -155,7 +155,7 @@ const SpamList = () => {
             <div className="flex gap-2 pt-2">
               <button
                 type="submit"
-                className="flex-1 bg-[#645CAD] text-white py-2 px-4 rounded-lg hover:bg-[#574ba0] transition-colors"
+                className="flex-1 bg-[#6f4e37] text-white py-2 px-4 rounded-lg hover:bg-[#9a6c4b] transition-colors"
               >
                 Add to Spam
               </button>
@@ -182,7 +182,7 @@ const SpamList = () => {
         
         <button
           onClick={() => setShowAddForm(true)}
-          className="bg-[#645CAD] text-white px-4 py-2 rounded-lg hover:bg-[#574ba0] transition-colors"
+          className="bg-[#6f4e37] text-white px-4 py-2 rounded-lg hover:bg-[#9a6c4b] transition-colors"
         >
           Add to Spam List
         </button>
@@ -197,11 +197,11 @@ const SpamList = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-            className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#645CAD] focus:border-transparent"
+            className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
           />
           <button
             onClick={handleSearch}
-            className="bg-[#645CAD] text-white px-6 py-3 rounded-lg hover:bg-[#574ba0] transition-colors"
+            className="bg-[#6f4e37] text-white px-6 py-3 rounded-lg hover:bg-[#9a6c4b] transition-colors"
           >
             Search
           </button>
@@ -230,7 +230,7 @@ const SpamList = () => {
           </div>
         ) : (
           spamList.map((item) => (
-            <div key={item._id} className="bg-[#D4DAFF] rounded-lg p-4 shadow-sm">
+            <div key={item._id} className="bg-[#efe5d8] border border-[#dbcab8] rounded-lg p-4 shadow-sm">
               <div className="flex gap-4 items-center">
                 {/* Customer Profile */}
                 <div className="shrink-0">

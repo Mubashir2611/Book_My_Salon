@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Chart as ChartJS, 
   CategoryScale, 
@@ -43,7 +43,7 @@ const ShopDashboard = () => {
     labels: monthlyRevenue.months,
     datasets: [
       {
-        label: 'Monthly Revenue (₹)',
+        label: 'Monthly Revenue (Rs.)',
         data: monthlyRevenue.revenue,
         backgroundColor: '#79aeff',
         borderColor: '#458cf7',
@@ -72,7 +72,7 @@ const ShopDashboard = () => {
         beginAtZero: true,
         ticks: {
           callback: function(value) {
-            return '₹' + value.toLocaleString();
+            return 'Rs.' + value.toLocaleString();
           },
           font: {
             size: window.innerWidth < 640 ? 10 : 12
@@ -129,7 +129,7 @@ const ShopDashboard = () => {
       labels: barberNames,
       datasets: [
         {
-          label: 'Revenue (₹)',
+          label: 'Revenue (Rs.)',
           data: barberRevenues,
           backgroundColor: colors.slice(0, barberNames.length),
           borderColor: colors.slice(0, barberNames.length).map(color => color.replace('0.3', '1')),
@@ -170,7 +170,7 @@ const ShopDashboard = () => {
         beginAtZero: true,
         ticks: {
           callback: function(value) {
-            return '₹' + value.toLocaleString();
+            return 'Rs.' + value.toLocaleString();
           },
           font: {
             size: window.innerWidth < 640 ? 10 : 12
@@ -197,9 +197,9 @@ const ShopDashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex w-full justify-center items-center min-h-[400px]">
+      <div className="flex w-full justify-center items-center min-h-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#9a6c4b] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading revenue data...</p>
         </div>
       </div>
@@ -208,7 +208,7 @@ const ShopDashboard = () => {
 
   if (error) {
     return (
-      <div className="flex w-full justify-center items-center min-h-[400px]">
+      <div className="flex w-full justify-center items-center min-h-100">
         <div className="text-center text-red-600">
           <p className="text-lg font-semibold">Error</p>
           <p>{error?.message || error?.data?.message || 'Failed to fetch revenue data'}</p>
@@ -234,7 +234,7 @@ const ShopDashboard = () => {
                 {monthlyRevenue.months[index]}
               </h3>
               <p className="text-3xl font-bold text-[#8818f6]">
-                ₹{revenue.toLocaleString()}
+                Rs.{revenue.toLocaleString()}
               </p>
               <p className="text-sm text-gray-500 mt-1">Monthly Revenue</p>
             </div>
@@ -314,7 +314,7 @@ const ShopDashboard = () => {
                   {month.barbers.map((barber, barberIndex) => (
                     <div key={barberIndex} className="bg-gray-50 rounded-lg p-4">
                       <h4 className="font-semibold text-gray-900">{barber.barberName}</h4>
-                      <p className="text-2xl font-bold text-green-600">₹{barber.totalRevenue.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-green-600">Rs.{barber.totalRevenue.toLocaleString()}</p>
                       <p className="text-sm text-gray-600">{barber.totalBookings} bookings</p>
                     </div>
                   ))}
@@ -329,3 +329,4 @@ const ShopDashboard = () => {
 };
 
 export default ShopDashboard;
+

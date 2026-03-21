@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HairCut from '../assets/haircut.jpg'
 import HairColor from '../assets/haircolor.webp'
 import Shaving from '../assets/shaving.jpg'
@@ -27,6 +29,7 @@ import {
 } from '../redux/api/api'
 
 const Home = () => {
+  const homeRef = useRef(null)
   // Sample dynamic data - in real app this would come from API/state management
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
@@ -91,6 +94,67 @@ const Home = () => {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    if (!homeRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Set initial state for animations
+      gsap.set('.home-hero-heading, .home-hero-paragraph, .home-hero-box, .home-reveal-section, .home-reveal-card', {
+        autoAlpha: 0,
+        y: 30, // Start all elements slightly down
+        willChange: 'transform, opacity'
+      });
+
+      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      intro
+        .to('.home-hero-heading', { y: 0, autoAlpha: 1, duration: 0.85, clearProps: 'all' })
+        .to('.home-hero-paragraph', { y: 0, autoAlpha: 1, duration: 0.7, clearProps: 'all' }, '-=0.45')
+        .to('.home-hero-box', { y: 0, autoAlpha: 1, stagger: 0.1, duration: 0.65, clearProps: 'all' }, '-=0.35');
+
+      gsap.utils.toArray('.home-reveal-section').forEach((section) => {
+        gsap.to(section, {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.85,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+          clearProps: 'all'
+        });
+      });
+
+      gsap.utils.toArray('.home-reveal-grid').forEach((grid) => {
+        const cards = grid.querySelectorAll('.home-reveal-card');
+        if (!cards.length) return;
+
+        gsap.to(cards, {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.65,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: grid,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+          clearProps: 'all'
+        });
+      });
+    }, homeRef);
+
+    return () => ctx.revert();
+  }, []);
+
   // Handle loading state
   useEffect(() => {
     if (!slotsLoading) {
@@ -129,31 +193,49 @@ const Home = () => {
       id: 1,
       name: "Men's Haircut",
       img: HairCut,
-      icon: "✂️",
+      icon: "Cut",
       description: "Get your hair cut based on your face shape, professionally styled."
     },
     {
       id: 2,
       name: "Beard Trim",
       img: Shaving,
-      icon: "🧔",
+      icon: "",
       description: "Keep your beard looking fresh with a lot of extra attention with clippers."
     },
     {
       id: 3,
       name: "Treatment",
       img: FacialMassage,
-      icon: "💆",
+      icon: "",
       description: "Leave it to us and our professional stylist to keep your hair healthy."
     },
     {
       id: 4,
       name: "Wash",
       img: HairColor,
-      icon: "🚿",
+      icon: "",
       description: "Nourish your hair and scalp with a full wash using our exclusive products."
     }
   ])
+
+  const highlights = [
+    { id: 1, title: 'Expert Stylists', desc: 'Experienced barbers and beauticians for every style.' },
+    { id: 2, title: 'Hygiene First', desc: 'Clean tools, sanitized stations, and safe grooming.' },
+    { id: 3, title: 'Easy Booking', desc: 'Fast slot booking with transparent service timings.' }
+  ];
+
+  const quickSteps = [
+    { id: 1, step: 'Choose Barber', detail: 'Pick your preferred professional from our team.' },
+    { id: 2, step: 'Select Services', detail: 'Combine haircut, beard trim, wash, and more.' },
+    { id: 3, step: 'Book Slot', detail: 'Reserve your convenient time in seconds.' }
+  ];
+
+  const featuredShowcase = [
+    { id: 1, title: 'Cut Studio', note: 'Precision Scissor Work', img: HairCut },
+    { id: 2, title: 'Beard Lounge', note: 'Classic Razor Finish', img: Shaving },
+    { id: 3, title: 'Treatment Bay', note: 'Relax And Restore', img: FacialMassage }
+  ];
 
   // Generate time slots (10:00 to 21:00 with 15 min intervals)
 
@@ -187,11 +269,77 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen  p-4">
-      <div className="max-w-md mx-auto bg-[#D4DAFF] space-y-6 p-5 rounded-2xl">
+    <div ref={homeRef} className="min-h-screen p-3 sm:p-4 md:p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <section className="home-reveal-section relative overflow-hidden rounded-[28px] border border-[#dccfbe] bg-[linear-gradient(140deg,#efe5da_0%,#f7f1ea_48%,#efe8de_100%)] p-4 sm:p-7 brand-shadow">
+          <div className="absolute -top-16 -right-10 h-44 w-44 rounded-full border border-[#d8c9b8]/60" />
+          <div className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full border border-[#d8c9b8]/50" />
+
+          <div className="relative z-10 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <p className="text-[#5a4a3b] text-sm font-semibold tracking-[0.16em] uppercase">Elite Barber House</p>
+              <div className="flex gap-2">
+                <span className="px-4 py-1.5 rounded-xl text-xs font-semibold bg-[#e8dbcd] text-[#43362a] border border-[#d6c6b6]">Spaces</span>
+                <span className="px-4 py-1.5 rounded-xl text-xs font-semibold bg-[#e8dbcd] text-[#43362a] border border-[#d6c6b6]">Services</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-end">
+              <div className="lg:col-span-7">
+                <h1 className="home-hero-heading font-['Georgia','Times_New_Roman',serif] text-[#2f261e] text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+                  Clean Cuts
+                  <br />
+                  Quiet Luxury
+                  <br />
+                  Sharp Detail
+                </h1>
+              </div>
+              <div className="lg:col-span-5">
+                <p className="home-hero-paragraph text-[#4d4034] text-sm sm:text-base leading-relaxed max-w-md lg:ml-auto">
+                  A simple, modern booking experience for premium grooming.
+                  Choose your barber, reserve your slot, and walk in with confidence.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2 lg:justify-end">
+                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Open 7 Days</span>
+                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">4.8 Rating</span>
+                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Quick Slots</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="home-reveal-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+              {featuredShowcase.map((item) => (
+                <article key={item.id} className="home-reveal-card overflow-hidden rounded-2xl bg-[#f6eee5] border border-[#dccab9]">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-40 sm:h-48 w-full object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#655446]">{item.note}</p>
+                    <h3 className="mt-1 text-xl font-semibold text-[#2f261e]">{item.title}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-reveal-section home-reveal-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {highlights.map((item) => (
+            <article key={item.id} className="home-reveal-card rounded-2xl bg-white/90 border border-[#dbcab8] p-5 brand-shadow">
+              <p className="text-[11px] tracking-[0.14em] uppercase text-[#4b6387]">Feature</p>
+              <h3 className="mt-2 text-xl font-semibold text-[#2f261e]">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+            </article>
+          ))}
+        </section>
+
+        <div className="home-reveal-section brand-surface rounded-2xl p-4 sm:p-5 md:p-6 space-y-6 brand-shadow">
         {/* Your Bookings Section */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+          <h2 className="text-xl font-semibold brand-title mb-4 text-center">
             {user && user.role === 'customer' ? "Your Bookings" : "Customer Bookings"}
           </h2>
           <div>
@@ -210,16 +358,16 @@ const Home = () => {
                   </>
                 ) : (
                   bookings.length === 0 ? (
-                    <div key={1} className="flex gap-4 bg-white rounded-lg p-4 shadow mb-4 justify-center">
+                    <div key={1} className="flex gap-4 bg-white rounded-lg p-4 brand-shadow mb-4 justify-center">
                       <div className="text-center text-gray-600">No bookings found.</div>
                     </div>
                   ) : (
                     user && user.role === 'customer' && bookings.map((booking) => (
-                      <div key={booking._id} className="bg-white rounded-lg p-4 shadow-sm mb-4">
+                      <div key={booking._id} className="bg-white rounded-lg p-4 brand-shadow mb-4">
                         <div className="flex gap-4">
                           {/* Customer Profile */}
                           <div className="shrink-0">
-                            <div className="w-12 h-12 rounded-full border-2 border-[#645CAD] bg-[#645CAD] flex items-center justify-center text-white font-semibold">
+                            <div className="w-12 h-12 rounded-full border-2 border-[#6f4e37] bg-[#6f4e37] flex items-center justify-center text-white font-semibold">
                               {booking.customerdetails?.customer_name ? booking.customerdetails?.customer_name.charAt(0).toUpperCase() : 'C'}
                             </div>
                           </div>
@@ -233,7 +381,7 @@ const Home = () => {
                                 </h3>
                                 <p className="text-sm text-gray-600">{booking.customerdetails?.customer_phone || 'No phone'}</p>
                                 <div className="flex flex-wrap gap-2 mt-2">
-                                  <span className="text-sm bg-[#988bf7] text-white px-2 py-1 rounded-full">
+                                  <span className="text-sm bg-[#9a6c4b] text-white px-2 py-1 rounded-full">
                                     {getDate(booking.date)}
                                   </span>
                                 </div>
@@ -251,7 +399,7 @@ const Home = () => {
 
                                 {/* Dropdown Menu */}
                                 {openDropdownId === booking._id && (
-                                  <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                  <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg brand-shadow z-10">
                                     <div className="py-1">
                                       <button
                                         onClick={() => {
@@ -260,7 +408,7 @@ const Home = () => {
                                         disabled={cancelling}
                                         className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
                                       >
-                                        {cancelling ? 'Cancelling...' : '🚫 Cancel Booking'}
+                                        {cancelling ? 'Cancelling...' : 'Cancel Booking'}
                                       </button>
                                     </div>
                                   </div>
@@ -277,7 +425,7 @@ const Home = () => {
                                       <img
                                         src={provider.barber_id?.profileUrl || '/default-avatar.png'}
                                         alt={provider.barber_id?.name}
-                                        className="w-10 h-10 rounded-full border-2 border-purple-300 object-cover"
+                                        className="w-10 h-10 rounded-full border-2 border-[#cfae90] object-cover"
                                         onError={(e) => { e.target.src = '/default-avatar.png' }}
                                       />
                                       <div className="flex-1">
@@ -286,10 +434,10 @@ const Home = () => {
                                         </h4>
                                         {provider.start_time && provider.end_time && (
                                           <div className="flex flex-wrap gap-2 mt-1">
-                                            <span className="text-xs bg-[#988bf7] text-white px-2 py-1 rounded-full">
+                                            <span className="text-xs bg-[#9a6c4b] text-white px-2 py-1 rounded-full">
                                               {provider.start_time} - {provider.end_time}
                                             </span>
-                                            <span className="text-xs bg-[#A89FFB] text-white px-2 py-1 rounded-full">
+                                            <span className="text-xs bg-[#6f4e37] text-white px-2 py-1 rounded-full">
                                               {provider.service_time} min
                                             </span>
                                           </div>
@@ -300,7 +448,7 @@ const Home = () => {
                                       {provider.services && provider.services.map((service, idx) => (
                                         <span
                                           key={idx}
-                                          className="text-xs bg-[#b0a1ff] text-gray-700 px-2 py-1 rounded"
+                                          className="text-xs bg-[#efe5d8] text-[#2f261e] px-2 py-1 rounded"
                                         >
                                           {service}
                                         </span>
@@ -315,13 +463,13 @@ const Home = () => {
                                 <div className="mb-3">
                                   <div className="flex flex-wrap gap-2 mb-2">
                                     {booking.services.map((service, index) => (
-                                      <span key={index} className="text-xs bg-[#dac9fd] text-gray-700 px-2 py-1 rounded">
+                                      <span key={index} className="text-xs bg-[#efe5d8] text-[#2f261e] px-2 py-1 rounded">
                                         {service}
                                       </span>
                                     ))}
                                   </div>
                                   {booking.start_time && (
-                                    <span className="text-sm text-gray-600 bg-[#dac9fd] rounded-full w-fit px-2.5">
+                                    <span className="text-sm text-[#2f261e] bg-[#efe5d8] rounded-full w-fit px-2.5">
                                       {booking.start_time}
                                     </span>
                                   )}
@@ -333,7 +481,7 @@ const Home = () => {
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                               <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
                                 booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                  booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                                  booking.status === 'completed' ? 'bg-[#efe2d3] text-[#5b4635]' :
                                     booking.status === 'cancelled' ? 'bg-red-100 text-red-800' :
                                       'bg-gray-100 text-gray-800'
                                 }`}>
@@ -341,7 +489,7 @@ const Home = () => {
                               </span>
                               {booking.payment && (
                                 <span className={`text-sm font-medium px-2 py-1 rounded-full w-fit ${booking.payment === 'pending' ? 'bg-gray-100 text-red-800' :
-                                  'bg-blue-100 text-blue-800'
+                                  'bg-[#efe2d3] text-[#5b4635]'
                                   }`}>
                                   {booking.payment.charAt(0).toUpperCase() + booking.payment.slice(1)}
                                 </span>
@@ -361,26 +509,41 @@ const Home = () => {
         {/* Notice Board Set By Admin */}
         {shopInfo && shopInfo.notice !== "" && (
           <div className="bg-red-100 p-4 rounded-lg shadow">
-            <h2 className="text-lg text-center font-semibold text-gray-800 mb-2">Notice Board</h2>
-            <p className="text-gray-600 text-sm">●{" "}{shopInfo.notice}</p>
+            <h2 className="text-lg text-center font-semibold brand-title mb-2">Notice Board</h2>
+            <p className="text-gray-600 text-sm">* {shopInfo.notice}</p>
           </div>
         )}
 
         {/* Carousel Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Menu</h2>
+        <div className="home-reveal-section">
+          <h2 className="text-xl font-semibold brand-title mb-4 text-center">Menu</h2>
           <Carousel />
         </div>
 
+        <section className="home-reveal-section home-reveal-grid">
+          <h2 className="text-xl font-semibold brand-title mb-4 text-center">How Booking Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {quickSteps.map((item) => (
+              <div key={item.id} className="home-reveal-card bg-white rounded-xl p-4 brand-shadow border border-[#dbcab8]">
+                <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#6f4e37] text-white text-sm font-bold">{item.id}</span>
+                <h3 className="mt-3 font-semibold text-[#2f261e]">{item.step}</h3>
+                <p className="text-sm text-slate-600 mt-1">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Book Your Slot Section */}
-        <BookYourSlot path={location.pathname} shopInfo={shopInfo} userRole={user && user.role} refechBooking={fetchBookings} />
+        <div className="home-reveal-section">
+          <BookYourSlot path={location.pathname} shopInfo={shopInfo} userRole={user && user.role} refechBooking={fetchBookings} />
+        </div>
 
         {/* Services Section */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Our Barber <span className="text-gray-500">Services</span></h2>
+        <div className="home-reveal-section home-reveal-grid">
+          <h2 className="text-2xl font-bold brand-title mb-6 text-center">Our Barber <span className="text-slate-600">Services</span></h2>
           <div className="flex flex-wrap gap-4 justify-center">
             {services.map((service) => (
-              <div key={service.id} className="relative bg-[#b8a4ff] rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden w-[calc(50%-8px)] min-w-[194px]">
+              <div key={service.id} className="home-reveal-card relative bg-[#efe5d8] rounded-xl brand-shadow hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] min-w-45">
                 {/* Service Image Background */}
                 <div className="relative h-32 overflow-hidden">
                   <img
@@ -397,8 +560,8 @@ const Home = () => {
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="font-bold text-gray-800 mb-2 text-center text-sm">{service.name}</h3>
-                  <p className="text-xs text-gray-600 text-center leading-relaxed">{service.description}</p>
+                  <h3 className="font-bold text-[#2f261e] mb-2 text-center text-sm">{service.name}</h3>
+                  <p className="text-xs text-slate-600 text-center leading-relaxed">{service.description}</p>
                 </div>
               </div>
             ))}
@@ -406,12 +569,14 @@ const Home = () => {
         </div>
 
         {/* Customer Reviews */}
-        <CustomerReviews availableBarbers={BookedSlots || []} user={user} />
+        <div className="home-reveal-section">
+          <CustomerReviews availableBarbers={BookedSlots || []} user={user} />
+        </div>
 
         {/* Team Section */}
-        <div >
-          <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Our Team</h2>
-          <div className='flex flex-col gap-4 overflow-x-auto'>
+        <div className="home-reveal-section">
+          <h2 className="text-xl font-semibold brand-title mb-4 text-center">Our Team</h2>
+          <div className='flex flex-col justify-center md:flex-row md:flex-wrap gap-4'>
             {loading ? (
               // Show skeleton loading for team
               <>
@@ -422,9 +587,9 @@ const Home = () => {
               ourTeamData && ourTeamData.data.map((barber) => (
                 <SpotlightCard
                   key={barber.barberId} className="custom-spotlight-card" spotlightColor="rgba(0, 229, 255, 0.2)">
-                  <div className="flex flex-col items-center min-w-[120px]">
+                  <div className="flex flex-col items-center min-w-30">
                     <img src={barber?.profileUrl} alt={barber.barberName} loading="lazy" className="w-20 h-20 object-cover rounded-full mb-2" />
-                    <div className="text-md font-medium text-gray-800">{barber?.barberName}</div>
+                    <div className="text-md font-medium text-[#2f261e]">{barber?.barberName}</div>
                     <div className="text-sm text-gray-600">{barber?.rating > 0 ? `Rating: ${barber?.rating}` : ""}</div>
                   </div>
                 </SpotlightCard>
@@ -435,7 +600,10 @@ const Home = () => {
 
 
         {/* Contact Card */}
-        <ContactCard shopInfo={shopInfo} shop_address={shopDetails && shopDetails[0]?.shop_address} number={shopDetails && shopDetails[0]?.phone} />
+        <div className="home-reveal-section">
+          <ContactCard shopInfo={shopInfo} shop_address={shopDetails && shopDetails[0]?.shop_address} number={shopDetails && shopDetails[0]?.phone} />
+        </div>
+      </div>
       </div>
     </div>
   )
@@ -446,32 +614,32 @@ const Home = () => {
 // ContactCard Component
 const ContactCard = ({ shopInfo, shop_address, number }) => {
   return (
-    <div className="bg-[#645CAD] rounded-lg p-6 text-white">
+    <div className="brand-gradient rounded-lg p-6 brand-shadow text-white">
       <h2 className="text-2xl font-bold mb-2">Barber Shop</h2>
-      <p className="text-purple-100 mb-4 text-sm">
+      <p className="text-[#efe0cf] mb-4 text-sm">
         Experience The Best New Hairstyles in Our Hair Salon. Just
         Book Your Desire Day from Now on and Easily Style Your Hair
       </p>
 
       {/* Social Icons */}
       <div className="flex space-x-3 mb-4">
-        <div className="w-8 h-8 text-black bg-transparent bg-opacity-20 rounded flex items-center justify-center"><FaFacebook /></div>
-        <div className="w-8 h-8 text-black bg-transparent bg-opacity-20 rounded flex items-center justify-center"><AiFillInstagram /></div>
+        <div className="w-8 h-8 text-[#2f261e] bg-white rounded flex items-center justify-center"><FaFacebook /></div>
+        <div className="w-8 h-8 text-[#2f261e] bg-white rounded flex items-center justify-center"><AiFillInstagram /></div>
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-3">Contact Info</h3>
         <div className="space-y-2 text-sm">
           <div className="flex items-center space-x-2">
-            <span>✉️</span>
+            <span>Email:</span>
             <span>{shopInfo && shopInfo.shop_email || 'support@barber.com'}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>📞</span>
+            <span>Phone:</span>
             <span>+91 {shopInfo && shopInfo.shop_phone || number} </span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>📍</span>
+            <span>Address:</span>
             <div>
               <span>{shopInfo && shopInfo.shop_address || shop_address}</span>
             </div>
@@ -479,11 +647,13 @@ const ContactCard = ({ shopInfo, shop_address, number }) => {
         </div>
       </div>
 
-      <div className="mt-4 text-xs text-purple-200">
-        © 2025 barber shop. All rights reserved.
+      <div className="mt-4 text-xs text-[#efe0cf]">
+        Copyright 2025 barber shop. All rights reserved.
       </div>
     </div>
   )
 }
 
 export default Home
+
+

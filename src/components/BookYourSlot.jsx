@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import right from '../assets/next.png'
 import left from '../assets/left.png'
 import { RefreshCw } from 'lucide-react'
@@ -473,7 +473,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
       const day = String(date.getDate()).padStart(2, '0')
       const fullDate = `${year}-${month}-${day}`
 
-      days.push(`${dayName}, ${monthName} ${dayNumber} • ${fullDate}`)
+      days.push(`${dayName}, ${monthName} ${dayNumber} - ${fullDate}`)
     }
     return days
   }
@@ -533,7 +533,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     }
                     toast.success('Data refreshed!');
                   }}
-                  className='bg-purple-500 hover:bg-purple-600 text-white p-2 rounded-lg transition-colors duration-200'
+                  className='bg-[#6f4e37] hover:bg-[#9a6c4b] text-white p-2 rounded-lg transition-colors duration-200'
                   title='Refresh bookings'
                 >
                   <RefreshCw className='w-5 h-5' />
@@ -541,7 +541,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                 <input type="date"
                   value={date}
                   onChange={(e) => { handleChange(e.target.value) }}
-                  className='w-full bg-[#D4DAFF]  px-2 py-2 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent cursor-pointer outline-none transition-all'
+                  className='w-full bg-[#f7f1e8] px-2 py-2 border border-[#dbcab8] rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent cursor-pointer outline-none transition-all'
                 />
               </div>
             </div>
@@ -575,7 +575,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                   BookedSlots && BookedSlots.map((barber, index) => (
                     <div
                       key={barber._id}
-                      className={`flex flex-col w-[48px] gap-2 cursor-pointer ${selectedBarber === index ? 'opacity-100' : 'opacity-50'}`}
+                      className={`flex flex-col w-12 gap-2 cursor-pointer ${selectedBarber === index ? 'opacity-100' : 'opacity-50'}`}
                       onClick={() => {
                         for (let i = 0; i < shopDetails.length; i++) {
                           if (barber._id === shopDetails[i].barber_id) {
@@ -592,9 +592,9 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                         src={barber.photoUrl}
                         alt={barber.name}
                         loading="lazy"
-                        className={`rounded-full border-2 w-12 h-12 ${selectedBarber === index ? 'border-indigo-600' : 'border-indigo-400'}`}
+                        className={`rounded-full border-2 w-12 h-12 ${selectedBarber === index ? 'border-[#6f4e37]' : 'border-[#cfae90]'}`}
                       />
-                      <div className={`h-1 rounded ${selectedBarber === index ? 'bg-indigo-600' : 'bg-gray-300'}`} />
+                      <div className={`h-1 rounded ${selectedBarber === index ? 'bg-[#6f4e37]' : 'bg-gray-300'}`} />
                       <p className="text-xs text-center font-medium ">{barber.name}</p>
                     </div>
                   ))
@@ -602,7 +602,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
               </div>
             </div>
 
-            <div className='bg-[#A89FFB] flex flex-col items-center rounded-2xl p-2 mt-4 relative overflow-hidden'>
+            <div className='bg-[#efe5d8] border border-[#dbcab8] flex flex-col items-center rounded-2xl p-2 mt-4 relative overflow-hidden brand-shadow'>
               {loading ? (
                 <>
                   <DateNavigationSkeleton />
@@ -615,19 +615,19 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     <button
                       onClick={handlePreviousDay}
                       disabled={currentDay === 0}
-                      className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#dac9fd] hover:bg-opacity-20'}`}
+                      className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#efe2d3]'}`}
                     >
                       <img src={left} alt="Previous" loading="lazy" className='w-6' />
                     </button>
 
-                    <div className="text-md text-gray-700 bg-[#dac9fd] rounded-full px-4 py-2 font-medium">
+                    <div className="text-md text-[#2f261e] bg-[#f7f1e8] border border-[#dbcab8] rounded-full px-4 py-2 font-medium">
                       {getDayNames()[currentDay]}
                     </div>
 
                     <button
                       onClick={handleNextDay}
                       disabled={currentDay === 2}
-                      className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#dac9fd] hover:bg-opacity-20'}`}
+                      className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#efe2d3]'}`}
                     >
                       <img src={right} alt="Next" loading="lazy" className='w-6' />
                     </button>
@@ -697,7 +697,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                           {/* Morning Slots */}
                           {morningSlots.length > 0 && (
                             <div className='w-full mb-4'>
-                              <h2 className='ml-2 text-[#0c1448] font-semibold mb-2'>
+                              <h2 className='ml-2 text-[#2f261e] font-semibold mb-2'>
                                 Morning ({shopDetail && shopDetail.opening_hours ? shopDetail.opening_hours.start : '10:00'} - 12:00)
                               </h2>
                               <div className='flex flex-wrap gap-2'>
@@ -714,7 +714,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                                         ? booked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                                     >
                                       {formatTimeToAMPM(time)}
@@ -728,7 +728,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                           {/* Afternoon Slots */}
                           {afternoonSlots.length > 0 && (
                             <div className='w-full mb-4'>
-                              <h2 className='ml-2 text-[#0c1448] font-semibold mb-2'>
+                              <h2 className='ml-2 text-[#2f261e] font-semibold mb-2'>
                                 Afternoon (12:00 - {closeHour < 17 ? `${String(closeHour).padStart(2, '0')}:00` : '05:00'})
                               </h2>
                               <div className='flex flex-wrap gap-2'>
@@ -745,7 +745,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                                         ? booked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                                     >
                                       {formatTimeToAMPM(time)}
@@ -759,7 +759,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                           {/* Evening Slots - Only show if shop is open past 5 PM */}
                           {eveningSlots.length > 0 && (
                             <div className='w-full'>
-                              <h2 className='ml-2 text-[#0c1448] font-semibold mb-2'>
+                              <h2 className='ml-2 text-[#2f261e] font-semibold mb-2'>
                                 Evening (05:00 - {String(closeHour).padStart(2, '0')}:00)
                               </h2>
                               <div className='flex flex-wrap gap-2'>
@@ -776,7 +776,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                                         ? booked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                                     >
                                       {formatTimeToAMPM(time)}
@@ -823,8 +823,8 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
 
             {/* Service Selection Modal */}
             {showServiceModal && (
-              <div className="fixed inset-0 bg-[#0000008c] bg-opacity-50 flex items-center justify-center z-[60]">
-                <div className="bg-[#A89FFB] rounded-2xl p-6 max-w-sm w-full mx-4 relative max-h-[90vh] overflow-y-auto">
+              <div className="fixed inset-0 bg-[#0000008c] bg-opacity-50 flex items-center justify-center z-60">
+                <div className="bg-[#efe5d8] border border-[#dbcab8] rounded-2xl p-6 max-w-sm w-full mx-4 relative max-h-[90vh] overflow-y-auto brand-shadow">
                   <button
                     onClick={() => {
                       setShowServiceModal(false);
@@ -836,15 +836,15 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     }}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl font-bold"
                   >
-                    ✕
+                    x
                   </button>
 
                   <h3 className="text-xl font-bold mb-2 text-center">Choose Services</h3>
                   <p className="text-center text-gray-700 font-semibold mb-2">
                     {BookedSlots && BookedSlots.find(b => b._id === currentBookingBarber)?.name}
                   </p>
-                  <div className='w-full text-center text-gray-800 bg-[#c3bcfb] rounded-xl p-3 mb-4'>
-                    <p className="text-sm text-red-700">• Please Arrive 5 minutes before your booking time to avoid auto booking cancellation</p>
+                  <div className='w-full text-center text-gray-800 bg-[#f7f1e8] border border-[#dbcab8] rounded-xl p-3 mb-4'>
+                    <p className="text-sm text-red-700">* Please arrive 5 minutes before your booking time to avoid auto booking cancellation</p>
                     <p className="text-sm font-semibold mt-1">Time: {currentBookingSlot && formatTimeToAMPM(currentBookingSlot)}</p>
                   </div>
 
@@ -855,7 +855,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                       placeholder="Search services..."
                       value={serviceSearchQuery}
                       onChange={(e) => setServiceSearchQuery(e.target.value)}
-                      className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
+                      className="w-full px-4 py-2 rounded-lg border-2 border-gray-300 focus:border-[#9a6c4b] focus:ring-2 focus:ring-[#d8c3ae] outline-none transition-all"
                     />
                   </div>
 
@@ -886,24 +886,24 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                           key={service._id}
                           onClick={() => toggleService(service.name)}
                           className={`flex items-center justify-between p-3 rounded-lg cursor-pointer border-2 transition-all ${selectedServices.includes(service.name)
-                            ? 'bg-purple-100 border-purple-400'
-                            : 'bg-gray-50 border-gray-200 hover:border-purple-300'
+                            ? 'bg-[#efe2d3] border-[#c9a586]'
+                            : 'bg-gray-50 border-gray-200 hover:border-[#cfae90]'
                             }`}
                         >
                           <div className="flex items-center gap-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.name)
-                              ? 'bg-purple-500 border-purple-500'
+                              ? 'bg-[#9a6c4b] border-[#9a6c4b]'
                               : 'border-gray-300'
                               }`}>
                               {selectedServices.includes(service.name) && (
-                                <span className="text-white text-xs">✓</span>
+                                <span className="text-white text-xs">OK</span>
                               )}
                             </div>
                             <span className="font-medium">{index+1}. {service.name}</span>
                           </div>
                           <div className="text-right">
                             <div className="text-sm text-gray-600">{service.duration} min</div>
-                            <div className="text-sm text-gray-500">₹{service.price}</div>
+                            <div className="text-sm text-gray-500">Rs. {service.price}</div>
                           </div>
                         </div>
                       ))
@@ -915,14 +915,14 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     <button
                       onClick={handleAddMoreBarbers}
                       disabled={selectedServices.length === 0}
-                      className="flex-1 bg-indigo-500 text-white py-3 rounded-lg font-semibold hover:bg-indigo-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      className="flex-1 bg-[#6f4e37] text-white py-3 rounded-lg font-semibold hover:bg-[#9a6c4b] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                     >
                       Add More
                     </button>
                     <button
                       onClick={handleBookNow}
                       disabled={bookingLoading || selectedServices.length === 0}
-                      className="flex-1 bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      className="flex-1 bg-[#2f261e] text-white py-3 rounded-lg font-semibold hover:bg-[#6f4e37] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                     >
                       {bookingLoading ? 'Booking...' : 'Book Now'}
                     </button>
@@ -938,3 +938,5 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
 }
 
 export default BookYourSlot
+
+

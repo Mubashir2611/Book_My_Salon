@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import left from '../assets/left.png';
 import right from '../assets/next.png';
 
@@ -30,12 +30,12 @@ const MultiBarberBookingModal = ({
 
   return (
     <div className="fixed inset-0 bg-[#0000008c] bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto p-4">
-      <div className="bg-white rounded-2xl p-4 max-w-2xl w-full my-8 relative max-h-[90vh] overflow-y-auto">
+      <div className="bg-white border border-[#dbcab8] rounded-2xl p-4 max-w-2xl w-full my-8 relative max-h-[90vh] overflow-y-auto brand-shadow">
         <button
           onClick={handleCancelMultiBooking}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold z-10"
         >
-          ✕
+          x
         </button>
 
         <h3 className="text-xl font-bold mb-2 text-center text-gray-800">Add More Services</h3>
@@ -43,8 +43,8 @@ const MultiBarberBookingModal = ({
 
         {/* Show already added barbers */}
         {multiBarberBookings.length > 0 && (
-          <div className="mb-4 bg-purple-50 rounded-xl p-3 border border-purple-200">
-            <h4 className="font-semibold text-sm text-gray-800 mb-2">✅ Already Selected:</h4>
+          <div className="mb-4 bg-[#f7efe6] rounded-xl p-3 border border-[#dbcab8]">
+            <h4 className="font-semibold text-sm text-gray-800 mb-2">Selected:</h4>
             <div className="space-y-2">
               {multiBarberBookings.map((booking, index) => {
                 const shopDetail = shopDetails.find(shop => shop.barber_id === booking.barber_id);
@@ -56,7 +56,7 @@ const MultiBarberBookingModal = ({
                 return (
                   <div key={index} className="bg-white rounded-lg p-2 border border-gray-200 flex justify-between items-center">
                     <div className="flex gap-2 items-center flex-1">
-                      <img src={booking.barber_photo} alt={booking.barber_name} className="w-10 h-10 rounded-full border-2 border-purple-400" />
+                      <img src={booking.barber_photo} alt={booking.barber_name} className="w-10 h-10 rounded-full border-2 border-[#c9a586]" />
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-sm text-gray-800 truncate">{booking.barber_name}</p>
                         <p className="text-xs text-gray-600">
@@ -67,16 +67,16 @@ const MultiBarberBookingModal = ({
                             const endMinutes = totalMinutes % 60;
                             const endTime = `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
                             return formatTimeToAMPM(endTime);
-                          })()} • ₹{totalPrice}
+                          })()} - Rs. {totalPrice}
                         </p>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {booking.services.slice(0, 2).map((service, i) => (
-                            <span key={i} className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">
+                            <span key={i} className="text-xs bg-[#efe2d3] text-[#6a5240] px-1.5 py-0.5 rounded">
                               {service}
                             </span>
                           ))}
                           {booking.services.length > 2 && (
-                            <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">
+                            <span className="text-xs bg-[#efe2d3] text-[#6a5240] px-1.5 py-0.5 rounded">
                               +{booking.services.length - 2}
                             </span>
                           )}
@@ -87,7 +87,7 @@ const MultiBarberBookingModal = ({
                       onClick={() => handleRemoveBarberBooking(index)}
                       className="text-red-500 hover:text-red-700 font-bold text-lg ml-2"
                     >
-                      ✕
+                      x
                     </button>
                   </div>
                 );
@@ -104,7 +104,7 @@ const MultiBarberBookingModal = ({
               {BookedSlots && BookedSlots.map((barber, index) => (
                 <div
                   key={barber._id}
-                  className={`flex flex-col w-[48px] gap-2 cursor-pointer ${selectedBarber === index ? 'opacity-100' : 'opacity-50'}`}
+                  className={`flex flex-col w-12 gap-2 cursor-pointer ${selectedBarber === index ? 'opacity-100' : 'opacity-50'}`}
                   onClick={() => {
                     setSelectedBarber(index);
                     for (let i = 0; i < shopDetails.length; i++) {
@@ -120,35 +120,35 @@ const MultiBarberBookingModal = ({
                     src={barber.photoUrl}
                     alt={barber.name}
                     loading="lazy"
-                    className={`rounded-full border-2 w-12 h-12 ${selectedBarber === index ? 'border-indigo-600' : 'border-indigo-400'}`}
+                    className={`rounded-full border-2 w-12 h-12 ${selectedBarber === index ? 'border-[#6f4e37]' : 'border-[#cfae90]'}`}
                   />
-                  <div className={`h-1 w-[48px] rounded ${selectedBarber === index ? 'bg-indigo-600' : 'bg-gray-300'}`} />
+                  <div className={`h-1 w-12 rounded ${selectedBarber === index ? 'bg-[#6f4e37]' : 'bg-gray-300'}`} />
                   <p className="text-xs text-center font-medium whitespace-wrap">{barber.name}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Purple themed time slot section - Same as main page */}
-          <div className='bg-[#A89FFB] flex flex-col items-center rounded-2xl p-2 relative overflow-hidden w-full'>
+          {/* Themed time slot section - Same as main page */}
+          <div className='bg-[#efe5d8] border border-[#dbcab8] flex flex-col items-center rounded-2xl p-2 relative overflow-hidden w-full'>
             {/* Date Navigation - Same as main page */}
             <div className='flex gap-2 w-full justify-between items-center mb-4'>
               <button
                 onClick={handlePreviousDay}
                 disabled={currentDay === 0}
-                className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#dac9fd] hover:bg-opacity-20'}`}
+                className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#efe2d3]'}`}
               >
                 <img src={left} alt="Previous" loading="lazy" className='w-6' />
               </button>
 
-              <div className="text-sm text-gray-700 bg-[#dac9fd] rounded-full px-3 py-2 font-medium">
+              <div className="text-sm text-gray-700 bg-[#f7f1e8] border border-[#dbcab8] rounded-full px-3 py-2 font-medium">
                 {getDayNames()[currentDay]}
               </div>
 
               <button
                 onClick={handleNextDay}
                 disabled={currentDay === 2}
-                className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#dac9fd] hover:bg-opacity-20'}`}
+                className={`w-10 h-10 flex items-center justify-center rounded-full ${currentDay === 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#efe2d3]'}`}
               >
                 <img src={right} alt="Next" loading="lazy" className='w-6' />
               </button>
@@ -204,7 +204,7 @@ const MultiBarberBookingModal = ({
                                         ? isBooked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                             >
                               {formatTimeToAMPM(time)}
@@ -234,7 +234,7 @@ const MultiBarberBookingModal = ({
                                         ? isBooked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                             >
                               {formatTimeToAMPM(time)}
@@ -264,7 +264,7 @@ const MultiBarberBookingModal = ({
                                         ? isBooked
                                           ? 'bg-red-200 border-red-400 text-red-700 cursor-not-allowed opacity-60'
                                           : 'bg-gray-200 border-gray-400 text-gray-500 cursor-not-allowed opacity-60'
-                                        : 'bg-[#F0E9FF] border-[#C18EFF] text-gray-700 hover:bg-purple-100 cursor-pointer'
+                                        : 'bg-[#f7f1e8] border-[#cfae90] text-gray-700 hover:bg-[#efe2d3] cursor-pointer'
                                         }`}
                             >
                               {formatTimeToAMPM(time)}
@@ -290,7 +290,7 @@ const MultiBarberBookingModal = ({
             <button
               onClick={handleBookNow}
               disabled={multiBarberBookings.length === 0 || bookingLoading}
-              className="flex-1 bg-purple-600 text-white py-2.5 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
+              className="flex-1 bg-[#6f4e37] text-white py-2.5 rounded-lg font-semibold hover:bg-[#9a6c4b] transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
             >
               {bookingLoading ? 'Booking...' : `Book All (${multiBarberBookings.length})`}
             </button>
@@ -302,3 +302,6 @@ const MultiBarberBookingModal = ({
 };
 
 export default MultiBarberBookingModal;
+
+
+

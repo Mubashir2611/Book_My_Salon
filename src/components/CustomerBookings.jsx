@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { CiMenuKebab } from 'react-icons/ci'
 import { FiEdit2, FiSave, FiX, FiPrinter, FiTrash2 } from 'react-icons/fi'
 import { generateReceipt } from '../utils/features'
@@ -514,14 +514,14 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                     placeholder="Customer Name"
                     value={newBillCustomer.name}
                     onChange={(e) => setNewBillCustomer({ ...newBillCustomer, name: e.target.value })}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                   />
                   <input
                     type="text"
                     placeholder="Phone Number"
                     value={newBillCustomer.phone}
                     onChange={(e) => setNewBillCustomer({ ...newBillCustomer, phone: e.target.value })}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                   />
                 </div>
               </div>
@@ -540,7 +540,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                   return (
                     <div key={providerIndex} className="mb-3 last:mb-0 relative">
                       <div className="flex justify-between items-center mb-1">
-                        <div className="text-sm font-semibold text-blue-700">
+                        <div className="text-sm font-semibold text-[#6a5240]">
                           {barberLabel}: {barberName}
                         </div>
                         <button
@@ -556,7 +556,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                         return (
                           <div key={serviceIndex} className="flex justify-between text-sm text-gray-600 mb-1 ml-3">
                             <span>{service}:</span>
-                            <span>₹ {price}</span>
+                            <span>Rs. {price}</span>
                           </div>
                         );
                       })}
@@ -575,7 +575,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                 {/* Subtotal */}
                 <div className="flex justify-between text-sm text-gray-600 mb-2 pt-2 border-t border-gray-200 mt-2">
                   <span>Subtotal:</span>
-                  <span>₹ {calculateNewBillTotal().subtotal}</span>
+                  <span>Rs. {calculateNewBillTotal().subtotal}</span>
                 </div>
 
                 {/* Discount */}
@@ -591,14 +591,14 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                       className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
                       placeholder="0"
                     />
-                    <span>% (₹{calculateNewBillTotal().discountAmount.toFixed(2)})</span>
+                    <span>% (Rs.{calculateNewBillTotal().discountAmount.toFixed(2)})</span>
                   </div>
                 </div>
 
                 {/* Total */}
                 <div className="flex justify-between text-sm font-semibold text-gray-800 pt-1 border-t border-gray-300">
                   <span>Total Price:</span>
-                  <span>₹ {calculateNewBillTotal().total.toFixed(2)}</span>
+                  <span>Rs. {calculateNewBillTotal().total.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -608,7 +608,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                 disabled={generatingNewBill}
                 className="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
               >
-                ✓ Generate Bill
+                Generate Bill
               </button>
             </div>
           </div>
@@ -637,7 +637,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
           placeholder="Search by customer name or phone..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b48763] focus:border-transparent text-sm"
         />
       </div>
 
@@ -664,7 +664,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
         <button
           onClick={() => handleFilterChange('all')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${paymentFilter === 'all'
-            ? 'bg-blue-100 text-blue-800 border border-blue-200'
+            ? 'bg-[#efe2d3] text-[#5b4635] border border-[#dbcab8]'
             : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
             }`}
         >
@@ -687,13 +687,13 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
               {/* Customer Info */}
               <div className="flex items-center gap-3 flex-1">
                 {/* Avatar */}
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                <div className="w-12 h-12 bg-[#6f4e37] rounded-full flex items-center justify-center text-white font-semibold text-lg">
                   {editingBookingId === booking._id ? (
                     <input
                       type="text"
                       value={editForm.customerName}
                       onChange={(e) => setEditForm({ ...editForm, customerName: e.target.value })}
-                      className="w-8 h-8 text-xs text-center bg-purple-400 rounded-full border-none outline-none text-white placeholder-purple-200"
+                      className="w-8 h-8 text-xs text-center bg-[#9a6c4b] rounded-full border-none outline-none text-white placeholder-[#d8c1aa]"
                       placeholder="Name"
                     />
                   ) : (
@@ -709,7 +709,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                       type="text"
                       value={editForm.customerName}
                       onChange={(e) => setEditForm({ ...editForm, customerName: e.target.value })}
-                      className="text-lg font-semibold text-gray-800 mb-1 border border-gray-300 rounded px-2 py-1 w-full max-w-[200px]"
+                      className="text-lg font-semibold text-gray-800 mb-1 border border-gray-300 rounded px-2 py-1 w-full max-w-50"
                     />
                   ) : (
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">{booking.customerdetails?.customer_name}</h3>
@@ -721,7 +721,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                       type="text"
                       value={editForm.customerPhone}
                       onChange={(e) => setEditForm({ ...editForm, customerPhone: e.target.value })}
-                      className="text-gray-600 mb-3 border border-gray-300 rounded px-2 py-1 w-full max-w-[200px]"
+                      className="text-gray-600 mb-3 border border-gray-300 rounded px-2 py-1 w-full max-w-50"
                     />
                   ) : (
                     <p className="text-gray-600 mb-3">{booking.customerdetails?.customer_phone}</p>
@@ -729,10 +729,10 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
 
                   {/* Booking Info Tags */}
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm">
+                    <span className="bg-[#efe2d3] text-[#5b4635] px-3 py-1 rounded-full text-sm">
                       {getFormattedDate(booking.date)}
                     </span>
-                    <span className="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm">
+                    <span className="bg-[#efe2d3] text-[#5b4635] px-3 py-1 rounded-full text-sm">
                       {booking?.status}
                     </span>
                     {editingBookingId !== booking._id && (
@@ -758,7 +758,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                         return (
                           <div key={providerIndex} className="mb-3 last:mb-0 relative">
                             <div className="flex justify-between items-center mb-1">
-                              <div className="text-sm font-semibold text-blue-700">
+                              <div className="text-sm font-semibold text-[#6a5240]">
                                 {barberLabel}: {barberName}
                               </div>
                               <button
@@ -774,7 +774,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                               return (
                                 <div key={serviceIndex} className="flex justify-between text-sm text-gray-600 mb-1 ml-3">
                                   <span>{service}:</span>
-                                  <span>₹ {price}</span>
+                                  <span>Rs. {price}</span>
                                 </div>
                               );
                             })}
@@ -794,7 +794,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
 
                           return (
                             <div key={providerIndex} className="mb-3 last:mb-0">
-                              <div className="text-sm font-semibold text-blue-700 mb-1">
+                              <div className="text-sm font-semibold text-[#6a5240] mb-1">
                                 {barberLabel}: {barberName}
                                 <span>
                                   {bookingStartTime && bookingEndTime && (
@@ -809,7 +809,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                                 return (
                                   <div key={serviceIndex} className="flex justify-between text-sm text-gray-600 mb-1 ml-3">
                                     <span>{service}:</span>
-                                    <span>₹ {price}</span>
+                                    <span>Rs. {price}</span>
                                   </div>
                                 );
                               })}
@@ -823,7 +823,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                           return (
                             <div key={index} className="flex justify-between text-sm text-gray-600 mb-1">
                               <span>{service}:</span>
-                              <span>₹ {price}</span>
+                              <span>Rs. {price}</span>
                             </div>
                           );
                         })
@@ -843,7 +843,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                     {/* Subtotal */}
                     <div className="flex justify-between text-sm text-gray-600 mb-2 pt-1 border-t border-gray-200 mt-2">
                       <span>Subtotal:</span>
-                      <span>₹ {editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).subtotal : calculateTotalPrice(booking).subtotal}</span>
+                      <span>Rs. {editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).subtotal : calculateTotalPrice(booking).subtotal}</span>
                     </div>
 
                     {/* Discount */}
@@ -860,14 +860,14 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                           placeholder="0"
                           disabled={editingBookingId !== booking._id}
                         />
-                        <span>% (₹{editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).discountAmount.toFixed(2) : calculateTotalPrice(booking).discountAmount.toFixed(2)})</span>
+                        <span>% (Rs.{editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).discountAmount.toFixed(2) : calculateTotalPrice(booking).discountAmount.toFixed(2)})</span>
                       </div>
                     </div>
 
                     {/* Total */}
                     <div className="flex justify-between text-sm font-semibold text-gray-800 pt-1 border-t border-gray-300">
                       <span>Total Price:</span>
-                      <span>₹ {editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).total.toFixed(2) : calculateTotalPrice(booking).total.toFixed(2)}</span>
+                      <span>Rs. {editingBookingId === booking._id ? calculateTotalPrice(booking, editedServiceProviders).total.toFixed(2) : calculateTotalPrice(booking).total.toFixed(2)}</span>
                     </div>
                   </div>
 
@@ -922,7 +922,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                     </button>
                     <button
                       onClick={() => handlePrintReceipt(booking)}
-                      className="p-2 hover:bg-blue-100 rounded-full transition-colors text-blue-600"
+                      className="p-2 hover:bg-[#efe2d3] rounded-full transition-colors text-[#7b5f49]"
                       title="Print receipt"
                     >
                       <FiPrinter size={16} />
@@ -940,7 +940,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                   </button>
 
                   {openDropdownId === booking._id && !editingBookingId && (
-                    <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[180px]">
+                    <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-45">
                       <button
                         onClick={() => handleCancelBooking(booking._id, booking.payment)}
                         className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 transition-colors text-sm font-medium"
@@ -949,7 +949,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                       </button>
                       <button
                         onClick={() => handlePrintReceipt(booking)}
-                        className="w-full px-4 py-2 text-left text-blue-600 hover:bg-blue-50 transition-colors text-sm font-medium flex items-center gap-2"
+                        className="w-full px-4 py-2 text-left text-[#7b5f49] hover:bg-[#f7efe6] transition-colors text-sm font-medium flex items-center gap-2"
                       >
                         <FiPrinter size={14} />
                         Print Receipt
@@ -961,9 +961,9 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                             setOpenDropdownId(null);
                           }}
 
-                          className="w-full text-left px-3 py-2 text-sm text-green-500 hover:bg-purple-50 transition-colors disabled:opacity-50"
+                          className="w-full text-left px-3 py-2 text-sm text-green-500 hover:bg-[#f7efe6] transition-colors disabled:opacity-50"
                         >
-                          🚶 Arrived
+                           Arrived
                         </button>)}
                     </div>
                   )}
@@ -1017,14 +1017,14 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                   placeholder="Customer Name"
                   value={newBillCustomer.name}
                   onChange={(e) => setNewBillCustomer({ ...newBillCustomer, name: e.target.value })}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 />
                 <input
                   type="text"
                   placeholder="Phone Number"
                   value={newBillCustomer.phone}
                   onChange={(e) => setNewBillCustomer({ ...newBillCustomer, phone: e.target.value })}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9a6c4b] focus:border-transparent"
                 />
               </div>
             </div>
@@ -1043,7 +1043,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                 return (
                   <div key={providerIndex} className="mb-3 last:mb-0 relative">
                     <div className="flex justify-between items-center mb-1">
-                      <div className="text-sm font-semibold text-blue-700">
+                      <div className="text-sm font-semibold text-[#6a5240]">
                         {barberLabel}: {barberName}
                       </div>
                       <button
@@ -1059,7 +1059,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                       return (
                         <div key={serviceIndex} className="flex justify-between text-sm text-gray-600 mb-1 ml-3">
                           <span>{service}:</span>
-                          <span>₹ {price}</span>
+                          <span>Rs. {price}</span>
                         </div>
                       );
                     })}
@@ -1078,7 +1078,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
               {/* Subtotal */}
               <div className="flex justify-between text-sm text-gray-600 mb-2 pt-2 border-t border-gray-200 mt-2">
                 <span>Subtotal:</span>
-                <span>₹ {calculateNewBillTotal().subtotal}</span>
+                <span>Rs. {calculateNewBillTotal().subtotal}</span>
               </div>
 
               {/* Discount */}
@@ -1094,14 +1094,14 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
                     className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
                     placeholder="0"
                   />
-                  <span>% (₹{calculateNewBillTotal().discountAmount.toFixed(2)})</span>
+                  <span>% (Rs.{calculateNewBillTotal().discountAmount.toFixed(2)})</span>
                 </div>
               </div>
 
               {/* Total */}
               <div className="flex justify-between text-sm font-semibold text-gray-800 pt-1 border-t border-gray-300">
                 <span>Total Price:</span>
-                <span>₹ {calculateNewBillTotal().total.toFixed(2)}</span>
+                <span>Rs. {calculateNewBillTotal().total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -1111,7 +1111,7 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
               disabled={generatingNewBill}
               className="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition-colors font-medium"
             >
-              ✓ Generate Bill
+              Generate Bill
             </button>
           </div>
         </div>
@@ -1139,3 +1139,5 @@ const CustomerBookings = ({ bookingsData, onRefreshData, availableBarbers = [], 
 };
 
 export default CustomerBookings;
+
+

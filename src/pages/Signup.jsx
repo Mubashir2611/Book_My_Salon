@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { auth } from '../utils/firebase'
@@ -239,7 +239,7 @@ const Signup = () => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
               currentStep >= step
-                ? 'bg-purple-500 text-white'
+                ? 'bg-[#6f4e37] text-white'
                 : 'bg-gray-200 text-gray-500'
             }`}
           >
@@ -248,7 +248,7 @@ const Signup = () => {
           {step < 4 && (
             <div
               className={`w-12 h-1 mx-2 ${
-                currentStep > step ? 'bg-purple-500' : 'bg-gray-200'
+                currentStep > step ? 'bg-[#6f4e37]' : 'bg-gray-200'
               }`}
             />
           )}
@@ -267,22 +267,22 @@ const Signup = () => {
       <div className="grid grid-cols-1 gap-4">
         <button
           onClick={() => handleRoleSelection('customer')}
-          className="p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 group"
+          className="p-6 border-2 border-gray-200 rounded-xl hover:border-[#6f4e37] hover:bg-[#f7efe6] transition-all duration-200 group"
         >
           <div className="text-center">
-            <div className="text-4xl mb-3">👤</div>
-            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-purple-600">Customer</h3>
+            <div className="text-4xl mb-3">User</div>
+            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#6f4e37]">Customer</h3>
             <p className="text-sm text-gray-600">Book appointments and manage your visits</p>
           </div>
         </button>
         
         <button
           onClick={() => handleRoleSelection('barber')}
-          className="p-6 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 group"
+          className="p-6 border-2 border-gray-200 rounded-xl hover:border-[#6f4e37] hover:bg-[#f7efe6] transition-all duration-200 group"
         >
           <div className="text-center">
-            <div className="text-4xl mb-3">✂️</div>
-            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-purple-600">Barber/Beautician</h3>
+            <div className="text-4xl mb-3">Pro</div>
+            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#6f4e37]">Barber/Beautician</h3>
             <p className="text-sm text-gray-600">Manage your schedule and serve customers</p>
           </div>
         </button>
@@ -308,7 +308,7 @@ const Signup = () => {
                 onClick={() => handleInputChange('gender', gender)}
                 className={`py-3 px-4 rounded-xl border-2 transition-all duration-200 ${
                   formData.gender === gender
-                    ? 'border-purple-500 bg-purple-50 text-purple-700'
+                    ? 'border-[#6f4e37] bg-[#f7efe6] text-[#6f4e37]'
                     : fieldErrors.gender
                     ? 'border-red-500 hover:border-red-600'
                     : 'border-gray-200 hover:border-gray-300'
@@ -330,7 +330,7 @@ const Signup = () => {
             type="date"
             value={formData.dateOfBirth}
             onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-            className={`w-full bg-[#dfdfdf] cursor-pointer px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all ${
+            className={`w-full bg-[#f2f6ff] cursor-pointer px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all ${
               fieldErrors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
             }`}
             max={new Date().toISOString().split('T')[0]}
@@ -352,7 +352,7 @@ const Signup = () => {
               value={formData.mobileNumber}
               onChange={(e) => handleInputChange('mobileNumber', e.target.value.replace(/\D/g, '').slice(0, 10))}
               placeholder="Enter 10-digit mobile number"
-              className={`flex-1 px-4 py-3 border rounded-r-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all ${
+              className={`flex-1 px-4 py-3 border rounded-r-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all ${
                 fieldErrors.mobileNumber ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -373,7 +373,7 @@ const Signup = () => {
               value={formData.barberCode}
               onChange={(e) => handleInputChange('barberCode', e.target.value)}
               placeholder="Enter barber verification code"
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all ${
+              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all ${
                 barberCodeError ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -388,7 +388,7 @@ const Signup = () => {
 
         <button
           onClick={handlePersonalDetailsSubmit}
-          className="w-full bg-purple-500 text-white font-semibold py-3 px-4 rounded-xl hover:bg-purple-600 transition-all duration-200"
+          className="w-full bg-[#6f4e37] text-white font-semibold py-3 px-4 rounded-xl hover:bg-[#9a6c4b] transition-all duration-200"
         >
           Continue
         </button>
@@ -411,7 +411,7 @@ const Signup = () => {
             className={`w-full font-semibold py-3 px-4 rounded-xl transition-all duration-200 ${
               sendingOtp 
                 ? 'bg-gray-400 cursor-not-allowed text-white' 
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-[#9a6c4b] hover:bg-[#9a6c4b] text-white'
             }`}
           >
             {sendingOtp ? 'Sending OTP...' : 'Send OTP'}
@@ -425,7 +425,7 @@ const Signup = () => {
                 value={formData.otp}
                 onChange={(e) => handleInputChange('otp', e.target.value.replace(/\D/g, '').slice(0, 6))}
                 placeholder="Enter 6-digit OTP"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all text-center text-lg font-mono"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all text-center text-lg font-mono"
                 maxLength={6}
               />
             </div>
@@ -444,7 +444,7 @@ const Signup = () => {
               className={`w-full font-medium py-2 transition-colors ${
                 sendingOtp 
                   ? 'text-gray-400 cursor-not-allowed' 
-                  : 'text-purple-600 hover:text-purple-800'
+                    : 'text-[#6f4e37] hover:text-[#9a6c4b]'
               }`}
             >
               {sendingOtp ? 'Sending...' : 'Resend OTP'}
@@ -483,7 +483,7 @@ const Signup = () => {
         {formData.role === 'barber' && (
           <div className="flex justify-between">
             <span className="text-gray-600">Barber Code:</span>
-            <span className="font-medium text-green-600">✓ Verified</span>
+            <span className="font-medium text-green-600">Verified</span>
           </div>
         )}
       </div>
@@ -491,7 +491,7 @@ const Signup = () => {
       <button
         onClick={handleGoogleSignup}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-3 bg-white border-2 border-purple-500 hover:bg-purple-50 text-purple-700 font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-3 bg-white border-2 border-[#6f4e37] hover:bg-[#f7efe6] text-[#6f4e37] font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <img src={googleLogo} alt="Google" loading="lazy" className="w-5 h-5" />
         {loading ? 'Creating Account...' : 'Complete Signup with Google'}
@@ -500,8 +500,8 @@ const Signup = () => {
   )
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-100 to-blue-100 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(155deg, #efe5da 0%, #f7f1ea 55%, #e5d8c8 100%)' }}>
+      <div className="max-w-md w-full bg-white border border-[#dbcab8] rounded-2xl shadow-xl p-8">
         {/* Step Indicator */}
         {renderStepIndicator()}
 
@@ -521,7 +521,7 @@ const Signup = () => {
               onClick={() => setCurrentStep(currentStep - 1)}
               className="text-gray-500 hover:text-gray-700 transition-colors"
             >
-              ← Back
+              <- Back
             </button>
           </div>
         )}
@@ -531,7 +531,7 @@ const Signup = () => {
           <p className="text-gray-600 mb-2">Already have an account?</p>
           <Link
             to="/login"
-            className="text-purple-600 hover:text-purple-800 font-medium transition-colors"
+            className="text-[#6f4e37] hover:text-[#9a6c4b] font-medium transition-colors"
           >
             Sign In
           </Link>
@@ -543,7 +543,7 @@ const Signup = () => {
             to="/"
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
-            ← Back to Home
+            <- Back to Home
           </Link>
         </div>
       </div>
@@ -552,3 +552,5 @@ const Signup = () => {
 }
 
 export default Signup
+
+

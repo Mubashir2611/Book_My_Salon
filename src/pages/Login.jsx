@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../utils/firebase'
@@ -54,8 +54,8 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(155deg, #efe5da 0%, #f7f1ea 55%, #e5d8c8 100%)' }}>
+      <div className="max-w-md w-full bg-white border border-[#dbcab8] rounded-2xl shadow-xl p-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
@@ -91,7 +91,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all"
                 disabled
               />
             </div>
@@ -100,7 +100,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#b48763] focus:border-transparent outline-none transition-all"
                 disabled
               />
             </div>
@@ -114,7 +114,7 @@ const Login = () => {
 
           {/* Forgot Password */}
           {/* <div className="text-center">
-            <Link to="#" className="text-sm text-purple-600 hover:text-purple-800 transition-colors">
+            <Link to="#" className="text-sm text-[#6f4e37] hover:text-[#9a6c4b] transition-colors">
               Forgot your password?
             </Link>
           </div>  */}
@@ -124,7 +124,7 @@ const Login = () => {
             <p className="text-gray-600 mb-3">Don't have an account?</p>
             <Link
               to="/signup"
-              className="inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-3 px-8 rounded-xl hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105 shadow-lg"
+              className="inline-block bg-linear-to-r from-[#6f4e37] to-[#9a6c4b] text-white font-semibold py-3 px-8 rounded-xl hover:from-[#2f261e] hover:to-[#6f4e37] transition-all duration-200 transform hover:scale-105 shadow-lg"
             >
               Create Account
             </Link>
@@ -136,7 +136,7 @@ const Login = () => {
               to="/"
               className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
-              ← Back to Home
+              <- Back to Home
             </Link>
           </div>
         </div>
@@ -146,3 +146,5 @@ const Login = () => {
 }
 
 export default Login
+
+
