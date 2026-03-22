@@ -35,6 +35,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
   const [currentBookingBarber, setCurrentBookingBarber] = useState(null);
   const [currentBookingSlot, setCurrentBookingSlot] = useState(null);
   const [serviceSearchQuery, setServiceSearchQuery] = useState('');
+  const [addToGoogleCalendar, setAddToGoogleCalendar] = useState(false);
 
   // Redux hooks
   const { data: bookedSlotsData, isLoading: slotsLoading, refetch: refetchSlots } = useGetBookedSlotsQuery();
@@ -74,6 +75,78 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
       document.head.removeChild(style);
     };
   }, []);
+
+  const buildCalendarDateTime = (dateString, timeString, addMinutes = 0) => {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const [hour, minute] = timeString.split(':').map(Number);
+
+    let totalMinutes = hour * 60 + minute + addMinutes;
+    let dayOffset = 0;
+
+    while (totalMinutes >= 1440) {
+      totalMinutes -= 1440;
+      dayOffset += 1;
+    }
+
+    while (totalMinutes < 0) {
+      totalMinutes += 1440;
+      dayOffset -= 1;
+    }
+
+    const eventDate = new Date(Date.UTC(year, month - 1, day + dayOffset));
+    const eventYear = eventDate.getUTCFullYear();
+    const eventMonth = String(eventDate.getUTCMonth() + 1).padStart(2, '0');
+    const eventDay = String(eventDate.getUTCDate()).padStart(2, '0');
+    const eventHour = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+    const eventMinute = String(totalMinutes % 60).padStart(2, '0');
+
+    return `${eventYear}${eventMonth}${eventDay}T${eventHour}${eventMinute}00`;
+  };
+
+  const getGoogleCalendarUrl = (bookings, bookingDate) => {
+    if (!bookings || bookings.length === 0 || !bookingDate) return '';
+
+    const barberMap = new Map((BookedSlots || []).map((b) => [b._id, b.name]));
+    const sortedBookings = [...bookings].sort((a, b) => a.start_time.localeCompare(b.start_time));
+
+    const startTime = sortedBookings[0].start_time;
+    let maxEndMinute = 0;
+
+    sortedBookings.forEach((booking) => {
+      const [h, m] = booking.start_time.split(':').map(Number);
+      const startMinute = h * 60 + m;
+      const endMinute = startMinute + (booking.service_time || 0);
+      if (endMinute > maxEndMinute) maxEndMinute = endMinute;
+    });
+
+    const endTime = `${String(Math.floor(maxEndMinute / 60) % 24).padStart(2, '0')}:${String(maxEndMinute % 60).padStart(2, '0')}`;
+    const dayCarry = Math.floor(maxEndMinute / 1440);
+    const endDateString = (() => {
+      const [y, mo, d] = bookingDate.split('-').map(Number);
+      const dt = new Date(Date.UTC(y, mo - 1, d + dayCarry));
+      return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, '0')}-${String(dt.getUTCDate()).padStart(2, '0')}`;
+    })();
+
+    const allServices = [...new Set(sortedBookings.flatMap((b) => b.services || []))];
+    const serviceText = allServices.join(', ');
+    const providerDetails = sortedBookings
+      .map((b) => {
+        const barberName = barberMap.get(b.barber_id) || 'Barber';
+        return `${barberName}: ${(b.services || []).join(', ')} (${formatTimeToAMPM(b.start_time)})`;
+      })
+      .join(' | ');
+
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: `Salon Booking - ${serviceText || 'Service'}`,
+      dates: `${buildCalendarDateTime(bookingDate, startTime)}/${buildCalendarDateTime(endDateString, endTime)}`,
+      details: `Services: ${serviceText || 'N/A'}\nProviders: ${providerDetails}`,
+      location: (shopInfo && shopInfo.shop_address) || (shopDetails && shopDetails[0]?.shop_address) || '',
+      ctz: 'Asia/Kolkata',
+    });
+
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  };
 
   // Set selected barber to current user if user is a barber
   useEffect(() => {
@@ -398,6 +471,13 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
       const result = await createBooking(bookingData).unwrap();
       toast.success(result.message);
 
+      if (addToGoogleCalendar) {
+        const calendarUrl = getGoogleCalendarUrl(allBookings, bookingData.date);
+        if (calendarUrl) {
+          window.open(calendarUrl, '_blank', 'noopener,noreferrer');
+        }
+      }
+
       // Refresh booked slots after successful booking
       refetchSlots();
       if (barberId && date) {
@@ -416,6 +496,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
     setMultiBarberBookings([]);
     setCurrentBookingBarber(null);
     setCurrentBookingSlot(null);
+    setAddToGoogleCalendar(false);
     
     // Refetch bookings in Home page
     if (refechBooking) {
@@ -896,7 +977,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                               : 'border-gray-300'
                               }`}>
                               {selectedServices.includes(service.name) && (
-                                <span className="text-white text-xs">OK</span>
+                                <span className="text-white text-xs">◉</span>
                               )}
                             </div>
                             <span className="font-medium">{index+1}. {service.name}</span>
@@ -910,8 +991,19 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     })()}
                   </div>
 
-                  {/* Two buttons: Add More and Book Now */}
-                  <div className="flex gap-2">
+                  <div className="sticky bottom-0 bg-[#efe5d8] pt-2">
+                    <label className="flex items-center gap-2 mb-3 p-2 rounded-lg border border-[#cfae90] bg-[#f7f1e8] text-sm text-[#2f261e] cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={addToGoogleCalendar}
+                        onChange={(e) => setAddToGoogleCalendar(e.target.checked)}
+                        className="h-4 w-4 accent-[#6f4e37]"
+                      />
+                      Add to Google Calendar after successful booking
+                    </label>
+
+                    {/* Two buttons: Add More and Book Now */}
+                    <div className="flex gap-2">
                     <button
                       onClick={handleAddMoreBarbers}
                       disabled={selectedServices.length === 0}
@@ -926,6 +1018,7 @@ const BookYourSlot = ({ path, shopInfo, userRole, refechBooking }) => {
                     >
                       {bookingLoading ? 'Booking...' : 'Book Now'}
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
