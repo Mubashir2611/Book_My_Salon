@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import Loader from './pages/Loader';
 import HairStyleAI from './pages/HairStyleAI';
+import VirtualTryOn from './components/VirtualTryOn';
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const BarberDashboard = lazy(() => import('./pages/BarberDashboard'));
 const BarberBookingsPage = lazy(() => import('./pages/BarberBookingsPage'));
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/HairStyleAI" element={<HairStyleAI/>} />
+          <Route path="/virtual-try-on" element={<VirtualTryOn/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/barber/dashboard" element={user && user.role === 'barber' ? <BarberDashboard/> : <Login/>} />

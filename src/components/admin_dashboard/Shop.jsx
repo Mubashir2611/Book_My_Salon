@@ -274,6 +274,7 @@ const Shop = () => {
       
       <div className="flex flex-col gap-6">
         {barbers.map((barberData) => {
+          console.log("Rendering barber:", barberData) // Debug log to check barber data structure
           const barber = barberData.barber_id; // Extract barber details from nested object
           
           return (

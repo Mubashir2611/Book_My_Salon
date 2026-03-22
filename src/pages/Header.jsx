@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import Logo from '../assets/Logo.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChevronDown, LogOut, User } from 'lucide-react'
+import { ChevronDown, LogOut, Sparkles, User, WandSparkles } from 'lucide-react'
 import { server } from '../constants/config'
 import { expireLoginToken, getTokenFromStorage } from '../utils/features'
 import { setUser } from '../redux/api/auth'
@@ -65,8 +65,8 @@ const Header = () => {
                     <div className=' flex gap-2 items-center'>
                         <img src={Logo} alt="" loading="lazy" className='w-13 h-10  rounded-full' />
                         <div>
-                            <h1 className='text-xl sm:text-2xl font-bold text-[#2f261e]'>ELITE </h1>
-                            <p className='text-xs sm:text-sm -mt-1 text-[#334155]'>Barber Shop</p>
+                            <h1 className='text-xl sm:text-2xl font-bold text-[#2f261e]'>Smart </h1>
+                            <p className='text-xs sm:text-sm -mt-1 text-[#334155]'>Saloni</p>
                         </div>
                     </div>
                 </Link>
@@ -76,9 +76,20 @@ const Header = () => {
             <div className="flex items-center gap-3">
                 <Link
                     to="/HairStyleAI"
-                    className="hidden sm:flex text-[#2f261e] font-semibold bg-white/80 border border-[#dbcab8] rounded-[10px] items-center gap-2 hover:bg-white cursor-pointer transition-colors px-4 py-2"
+                    className="group inline-flex items-center gap-2 rounded-xl border border-[#c8b198] bg-white/85 text-[#3c2f25] px-4 py-2.5 font-semibold shadow-[0_8px_20px_rgba(149,116,87,0.18)] ring-1 ring-[#f5ebe0] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_10px_24px_rgba(149,116,87,0.22)]"
                 >
-                    Hairstyle AI
+                    <WandSparkles className="w-4 h-4 text-[#8b5e3c] transition-transform duration-300 group-hover:rotate-12" />
+                    <span className="hidden sm:inline">Hairstyle AI</span>
+                    <span className="sm:hidden">Style AI</span>
+                </Link>
+
+                <Link
+                    to="/virtual-try-on"
+                    className="group inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#6f4e37] via-[#8b5e3c] to-[#9a6c4b] text-white px-4 py-2.5 font-semibold shadow-[0_8px_24px_rgba(111,78,55,0.28)] ring-1 ring-[#b08a67]/45 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(111,78,55,0.35)]"
+                >
+                    <Sparkles className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
+                    <span className="hidden sm:inline">Virtual Try-On</span>
+                    <span className="sm:hidden">Try-On</span>
                 </Link>
 
                 {!user ? (
