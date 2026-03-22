@@ -1,6 +1,5 @@
-﻿import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+﻿import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import HairCut from '../assets/haircut.jpg'
 import HairColor from '../assets/haircolor.webp'
 import Shaving from '../assets/shaving.jpg'
@@ -29,7 +28,6 @@ import {
 } from '../redux/api/api'
 
 const Home = () => {
-  const homeRef = useRef(null)
   // Sample dynamic data - in real app this would come from API/state management
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
@@ -94,66 +92,42 @@ const Home = () => {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    if (!homeRef.current) return;
+  const fadeUp = {
+    hidden: { opacity: 0, y: 26 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: 'easeOut' }
+    }
+  }
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+  const stagger = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.1 }
+    }
+  }
 
-    gsap.registerPlugin(ScrollTrigger);
+  const headingAnimation = {
+    hidden: { opacity: 0, y: 36, scale: 0.96, filter: 'blur(4px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] }
+    }
+  }
 
-    const ctx = gsap.context(() => {
-      // Set initial state for animations
-      gsap.set('.home-hero-heading, .home-hero-paragraph, .home-hero-box, .home-reveal-section, .home-reveal-card', {
-        autoAlpha: 0,
-        y: 30, // Start all elements slightly down
-        willChange: 'transform, opacity'
-      });
-
-      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      intro
-        .to('.home-hero-heading', { y: 0, autoAlpha: 1, duration: 0.85, clearProps: 'all' })
-        .to('.home-hero-paragraph', { y: 0, autoAlpha: 1, duration: 0.7, clearProps: 'all' }, '-=0.45')
-        .to('.home-hero-box', { y: 0, autoAlpha: 1, stagger: 0.1, duration: 0.65, clearProps: 'all' }, '-=0.35');
-
-      gsap.utils.toArray('.home-reveal-section').forEach((section) => {
-        gsap.to(section, {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.85,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          clearProps: 'all'
-        });
-      });
-
-      gsap.utils.toArray('.home-reveal-grid').forEach((grid) => {
-        const cards = grid.querySelectorAll('.home-reveal-card');
-        if (!cards.length) return;
-
-        gsap.to(cards, {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.65,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: grid,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          clearProps: 'all'
-        });
-      });
-    }, homeRef);
-
-    return () => ctx.revert();
-  }, []);
+  const paragraphAnimation = {
+    hidden: { opacity: 0, y: 24, x: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      transition: { duration: 0.8, delay: 0.2, ease: 'easeOut' }
+    }
+  }
 
   // Handle loading state
   useEffect(() => {
@@ -269,9 +243,14 @@ const Home = () => {
 
 
   return (
-    <div ref={homeRef} className="min-h-screen p-3 sm:p-4 md:p-6">
+    <div className="min-h-screen p-3 sm:p-4 md:p-6">
       <div className="max-w-6xl mx-auto space-y-6">
-        <section className="home-reveal-section relative overflow-hidden rounded-[28px] border border-[#dccfbe] bg-[linear-gradient(140deg,#efe5da_0%,#f7f1ea_48%,#efe8de_100%)] p-4 sm:p-7 brand-shadow">
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="home-reveal-section relative overflow-hidden rounded-[28px] border border-[#dccfbe] bg-[linear-gradient(140deg,#efe5da_0%,#f7f1ea_48%,#efe8de_100%)] p-4 sm:p-7 brand-shadow"
+        >
           <div className="absolute -top-16 -right-10 h-44 w-44 rounded-full border border-[#d8c9b8]/60" />
           <div className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full border border-[#d8c9b8]/50" />
 
@@ -284,32 +263,53 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-end">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-end"
+            >
               <div className="lg:col-span-7">
-                <h1 className="home-hero-heading font-['Georgia','Times_New_Roman',serif] text-[#2f261e] text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+                <motion.h1
+                  variants={headingAnimation}
+                  initial="hidden"
+                  animate="visible"
+                  className="home-hero-heading font-['Georgia','Times_New_Roman',serif] text-[#2f261e] text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight"
+                >
                   Clean Cuts
                   <br />
                   Quiet Luxury
                   <br />
                   Sharp Detail
-                </h1>
+                </motion.h1>
               </div>
               <div className="lg:col-span-5">
-                <p className="home-hero-paragraph text-[#4d4034] text-sm sm:text-base leading-relaxed max-w-md lg:ml-auto">
+                <motion.p
+                  variants={paragraphAnimation}
+                  initial="hidden"
+                  animate="visible"
+                  className="home-hero-paragraph text-[#4d4034] text-sm sm:text-base leading-relaxed max-w-md lg:ml-auto"
+                >
                   A simple, modern booking experience for premium grooming.
                   Choose your barber, reserve your slot, and walk in with confidence.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2 lg:justify-end">
-                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Open 7 Days</span>
-                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">4.8 Rating</span>
-                  <span className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Quick Slots</span>
-                </div>
+                </motion.p>
+                <motion.div variants={stagger} className="mt-4 flex flex-wrap gap-2 lg:justify-end">
+                  <motion.span variants={fadeUp} className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Open 7 Days</motion.span>
+                  <motion.span variants={fadeUp} className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">4.8 Rating</motion.span>
+                  <motion.span variants={fadeUp} className="home-hero-box px-3 py-1 rounded-full text-xs bg-[#f8f3ec] border border-[#dbc9b7] text-[#4a3b2d]">Quick Slots</motion.span>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="home-reveal-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="home-reveal-grid grid grid-cols-1 md:grid-cols-3 gap-4"
+            >
               {featuredShowcase.map((item) => (
-                <article key={item.id} className="home-reveal-card overflow-hidden rounded-2xl bg-[#f6eee5] border border-[#dccab9]">
+                <motion.article variants={fadeUp} key={item.id} className="home-reveal-card overflow-hidden rounded-2xl bg-[#f6eee5] border border-[#dccab9]">
                   <img
                     src={item.img}
                     alt={item.title}
@@ -320,23 +320,35 @@ const Home = () => {
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#655446]">{item.note}</p>
                     <h3 className="mt-1 text-xl font-semibold text-[#2f261e]">{item.title}</h3>
                   </div>
-                </article>
+                </motion.article>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="home-reveal-section home-reveal-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section home-reveal-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {highlights.map((item) => (
-            <article key={item.id} className="home-reveal-card rounded-2xl bg-[#f7f1e8] border border-[#b49777] p-5 brand-shadow">
+            <motion.article variants={fadeUp} key={item.id} className="home-reveal-card rounded-2xl bg-[#f7f1e8] border border-[#b49777] p-5 brand-shadow">
               <p className="text-[11px] tracking-[0.14em] uppercase text-[#4b6387]">Feature</p>
               <h3 className="mt-2 text-xl font-semibold text-[#2f261e]">{item.title}</h3>
               <p className="mt-2 text-sm text-slate-600 leading-relaxed">{item.desc}</p>
-            </article>
+            </motion.article>
           ))}
-        </section>
+        </motion.section>
 
-        <div className="home-reveal-section brand-surface rounded-2xl p-4 sm:p-5 md:p-6 space-y-6 brand-shadow">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section brand-surface rounded-2xl p-4 sm:p-5 md:p-6 space-y-6 brand-shadow"
+        >
         {/* Your Bookings Section */}
         <div>
           <h2 className="text-xl font-semibold brand-title mb-4 text-center">
@@ -358,12 +370,12 @@ const Home = () => {
                   </>
                 ) : (
                   bookings.length === 0 ? (
-                    <div key={1} className="flex gap-4 bg-white rounded-lg p-4 brand-shadow mb-4 justify-center">
+                    <div key={1} className="flex gap-4 bg-[#f7f1e8] border-[#9a6c4b] rounded-lg p-4 brand-shadow mb-4 justify-center">
                       <div className="text-center text-gray-600">No bookings found.</div>
                     </div>
                   ) : (
                     user && user.role === 'customer' && bookings.map((booking) => (
-                      <div key={booking._id} className="bg-white rounded-lg p-4 brand-shadow mb-4">
+                      <div key={booking._id} className="bg-[#9a6c4b] rounded-lg p-4 brand-shadow mb-4">
                         <div className="flex gap-4">
                           {/* Customer Profile */}
                           <div className="shrink-0">
@@ -515,35 +527,59 @@ const Home = () => {
         )}
 
         {/* Carousel Section */}
-        <div className="home-reveal-section">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section"
+        >
           <h2 className="text-xl font-semibold brand-title mb-4 text-center">Menu</h2>
           <Carousel />
-        </div>
+        </motion.div>
 
-        <section className="home-reveal-section home-reveal-grid">
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section home-reveal-grid"
+        >
           <h2 className="text-xl font-semibold brand-title mb-4 text-center">How Booking Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {quickSteps.map((item) => (
-              <div key={item.id} className="home-reveal-card bg-white rounded-xl p-4 brand-shadow border border-[#dbcab8]">
+              <motion.div variants={fadeUp} key={item.id} className="home-reveal-card bg-white rounded-xl p-4 brand-shadow border border-[#dbcab8]">
                 <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#6f4e37] text-white text-sm font-bold">{item.id}</span>
                 <h3 className="mt-3 font-semibold text-[#2f261e]">{item.step}</h3>
                 <p className="text-sm text-slate-600 mt-1">{item.detail}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* Book Your Slot Section */}
-        <div className="home-reveal-section">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section"
+        >
           <BookYourSlot path={location.pathname} shopInfo={shopInfo} userRole={user && user.role} refechBooking={fetchBookings} />
-        </div>
+        </motion.div>
 
         {/* Services Section */}
-        <div className="home-reveal-section home-reveal-grid">
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section home-reveal-grid"
+        >
           <h2 className="text-2xl font-bold brand-title mb-6 text-center">Our Barber <span className="text-slate-600">Services</span></h2>
           <div className="flex flex-wrap gap-4 justify-center">
             {services.map((service) => (
-              <div key={service.id} className="home-reveal-card relative bg-[#efe5d8] rounded-xl brand-shadow hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] min-w-45">
+              <motion.div variants={fadeUp} key={service.id} className="home-reveal-card relative bg-[#efe5d8] rounded-xl brand-shadow hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] min-w-45">
                 {/* Service Image Background */}
                 <div className="relative h-32 overflow-hidden">
                   <img
@@ -563,18 +599,30 @@ const Home = () => {
                   <h3 className="font-bold text-[#2f261e] mb-2 text-center text-sm">{service.name}</h3>
                   <p className="text-xs text-slate-600 text-center leading-relaxed">{service.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Customer Reviews */}
-        <div className="home-reveal-section">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section"
+        >
           <CustomerReviews availableBarbers={BookedSlots || []} user={user} />
-        </div>
+        </motion.div>
 
         {/* Team Section */}
-        <div className="home-reveal-section">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section"
+        >
           <h2 className="text-xl font-semibold brand-title mb-4 text-center">Our Team</h2>
           <div className='flex flex-col justify-center md:flex-row md:flex-wrap gap-4'>
             {loading ? (
@@ -596,14 +644,20 @@ const Home = () => {
               ))
             )}
           </div>
-        </div>
+        </motion.div>
 
 
         {/* Contact Card */}
-        <div className="home-reveal-section">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="home-reveal-section"
+        >
           <ContactCard shopInfo={shopInfo} shop_address={shopDetails && shopDetails[0]?.shop_address} number={shopDetails && shopDetails[0]?.phone} />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       </div>
     </div>
   )
