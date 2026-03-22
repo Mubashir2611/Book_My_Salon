@@ -521,7 +521,7 @@ const Signup = () => {
               onClick={() => setCurrentStep(currentStep - 1)}
               className="text-gray-500 hover:text-gray-700 transition-colors"
             >
-              <- Back
+               Back
             </button>
           </div>
         )}
@@ -543,7 +543,7 @@ const Signup = () => {
             to="/"
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
-            <- Back to Home
+             Back to Home
           </Link>
         </div>
       </div>
